@@ -1,15 +1,14 @@
 using Backend.Helpers;
+using Backend.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();
-// de decomentat cand adaugam contextul
-// builder.Services.AddDbContext<MyAppContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DB")));
+builder.Services.AddDbContext<ShareLocationContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DB")));
 builder.Services.AddServices();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
