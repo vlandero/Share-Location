@@ -1,7 +1,10 @@
-﻿namespace Backend.Services.UserService
+﻿using Backend.Models.User;
+
+namespace Backend.Services.UserService
 {
     public interface IUserService
     {
-        public String Test(string t);
+        string Test(string t);
+        User GetByIdPlaceholder(Guid id);
     }
 }

@@ -6,7 +6,7 @@ https://docs.google.com/document/d/1o1UljJZcGRwUYMA2DEaf-Fzk7kOFfNnCRz9bJynFx4I/
 Trello board:
 https://trello.com/b/p1LD29YY/application
 
-Total story points: 126.
+Total story points: 123.
 
 5 sprinturi => 24 story points / sprint.
 

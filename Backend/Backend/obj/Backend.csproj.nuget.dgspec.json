@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Vlad\\Desktop\\share-location\\Backend\\Backend\\Backend.csproj": {}
+    "C:\\Users\\Vlad\\Desktop\\MDS\\mds\\Backend\\Backend\\Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Vlad\\Desktop\\share-location\\Backend\\Backend\\Backend.csproj": {
+    "C:\\Users\\Vlad\\Desktop\\MDS\\mds\\Backend\\Backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vlad\\Desktop\\share-location\\Backend\\Backend\\Backend.csproj",
+        "projectUniqueName": "C:\\Users\\Vlad\\Desktop\\MDS\\mds\\Backend\\Backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "C:\\Users\\Vlad\\Desktop\\share-location\\Backend\\Backend\\Backend.csproj",
+        "projectPath": "C:\\Users\\Vlad\\Desktop\\MDS\\mds\\Backend\\Backend\\Backend.csproj",
         "packagesPath": "C:\\Users\\Vlad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vlad\\Desktop\\share-location\\Backend\\Backend\\obj\\",
+        "outputPath": "C:\\Users\\Vlad\\Desktop\\MDS\\mds\\Backend\\Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Vlad\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -52,6 +52,10 @@
               "target": "Package",
               "version": "[7.0.4, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[7.0.3, )"
@@ -59,6 +63,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.28.1, )"
             }
           },
           "imports": [

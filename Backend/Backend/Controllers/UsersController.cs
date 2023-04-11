@@ -14,7 +14,7 @@ namespace Backend.Controllers
             _userService = userService;
         }
         [HttpGet("test/{ts}")]
-        public IActionResult TestGet(String ts)
+        public IActionResult TestGet(string ts)
         {
             var k = _userService.Test(ts);
             return Ok(k);
