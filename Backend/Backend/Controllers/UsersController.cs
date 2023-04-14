@@ -1,4 +1,5 @@
 ﻿using Backend.Models.DTOs.UserRegisterRequestDTO;
+using Backend.Models.DTOs.UserToBeStoredDTO;
 using Backend.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,12 +14,6 @@ namespace Backend.Controllers
         {
             _userService = userService;
         }
-        [HttpGet("test/{ts}")]
-        public IActionResult TestGet(string ts)
-        {
-            var k = _userService.Test(ts);
-            return Ok(k);
-        }
         [HttpPost("register")]
         public IActionResult Register(UserRegisterRequestDTO u)
         {
@@ -31,7 +26,25 @@ namespace Backend.Controllers
             {
                 return BadRequest(ex.InnerException.Message);
             }
-}
+        }
+        [HttpPost("modify")]
+        public IActionResult Modify(UserToBeStoredDTO user)
+        {
+            try
+            {
+                var modifiedUser = _userService.ModifyUser(user);
+                return Ok(modifiedUser);
+            }
+            catch(Exception ex)
+            {
+                if(ex.InnerException == null)
+                {
+                    return BadRequest(ex.Message);
+                }
+                return BadRequest(ex.InnerException.Message);
+
+            }
+        }
 
     }
 }

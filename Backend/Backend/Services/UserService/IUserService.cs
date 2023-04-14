@@ -6,8 +6,8 @@ namespace Backend.Services.UserService
 {
     public interface IUserService
     {
-        string Test(string t);
         User GetById(Guid id);
         UserToBeStoredDTO Registration(UserRegisterRequestDTO user);
+        UserToBeStoredDTO ModifyUser(UserToBeStoredDTO user);
     }
 }

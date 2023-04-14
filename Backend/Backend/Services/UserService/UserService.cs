@@ -3,7 +3,6 @@ using Backend.Models.DTOs.UserRegisterRequestDTO;
 using Backend.Models.DTOs.UserToBeStoredDTO;
 using Backend.Models.User;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 
 namespace Backend.Services.UserService
 {
@@ -16,23 +15,32 @@ namespace Backend.Services.UserService
             _context = context;
             _table = _context.Set<User>();
         }
-        public string Test(string t)
-        {
-            return t + " Test";
-        }
 
-        public User GetById(Guid id)
+        public User? GetById(Guid id)
         {
             return _table.Find(id);
         }
-
         public UserToBeStoredDTO Registration(UserRegisterRequestDTO userDTO)
         {
             var user = new User(userDTO);
-            _table.Add(user);
+            _context.Add(user);
             _context.SaveChanges();
             return new UserToBeStoredDTO(user);
-            
+        }
+
+        public UserToBeStoredDTO ModifyUser(UserToBeStoredDTO userDTO)
+        {
+            var user = GetById(userDTO.Id) ?? throw new Exception("Invalid user id");
+            user.About = userDTO.About;
+            user.Email = userDTO.Email;
+            user.Username = userDTO.Username;
+            user.Photos = userDTO.Photos;
+            user.Location = userDTO.Location;
+            user.Name = userDTO.Name;
+            user.Phone = userDTO.Phone;
+            _context.Update(user);
+            _context.SaveChanges();
+            return userDTO;
         }
     }
 }

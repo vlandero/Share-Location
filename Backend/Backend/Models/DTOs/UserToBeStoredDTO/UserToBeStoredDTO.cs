@@ -1,4 +1,6 @@
-﻿namespace Backend.Models.DTOs.UserToBeStoredDTO
+﻿using System.Text.Json.Serialization;
+
+namespace Backend.Models.DTOs.UserToBeStoredDTO
 {
     public class UserToBeStoredDTO : IUserToBeStoredDTO
     {
@@ -10,6 +12,10 @@
         public List<string> Photos { get; set; }
         public string About { get; set; }
         public string Location { get; set; }
+        [JsonConstructor]
+        public UserToBeStoredDTO()
+        {
+        }
 
         public UserToBeStoredDTO(User.User u)
         {

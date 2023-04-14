@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Backend.Models.DTOs.UserRegisterRequestDTO;
 using BCryptNet = BCrypt.Net.BCrypt;
+using System.Text.Json.Serialization;
 
 namespace Backend.Models.User
 {
@@ -20,6 +21,7 @@ namespace Backend.Models.User
         public string Location { get; set; }
         public string Token { get; set; }
 
+        [JsonConstructor]
         public User() { }
 
         public User(UserRegisterRequestDTO u)
