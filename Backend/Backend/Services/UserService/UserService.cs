@@ -1,27 +1,38 @@
-﻿using Backend.Models.User;
+﻿using Backend.Models;
+using Backend.Models.DTOs.UserRegisterRequestDTO;
+using Backend.Models.DTOs.UserToBeStoredDTO;
+using Backend.Models.User;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace Backend.Services.UserService
 {
     public class UserService : IUserService
     {
+        private readonly ShareLocationContext _context;
+        private readonly DbSet<User> _table;
+        public UserService(ShareLocationContext context)
+        {
+            _context = context;
+            _table = _context.Set<User>();
+        }
         public string Test(string t)
         {
             return t + " Test";
         }
 
-        public User GetByIdPlaceholder(Guid id)
+        public User GetById(Guid id)
         {
-            return new User
-            { 
-                About = "",
-                Email = "",
-                Id = id,
-                Location = "",
-                Name = "Test",
-                Password = "Password",
-                Phone = "",
-                Photos = new List<string> {}
-            };
+            return _table.Find(id);
+        }
+
+        public UserToBeStoredDTO Registration(UserRegisterRequestDTO userDTO)
+        {
+            var user = new User(userDTO);
+            _table.Add(user);
+            _context.SaveChanges();
+            return new UserToBeStoredDTO(user);
+            
         }
     }
 }

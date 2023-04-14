@@ -1,8 +1,7 @@
-﻿namespace Backend.Models.User
+﻿namespace Backend.Models.DTOs.UserRegisterRequestDTO
 {
-    public interface IUser
+    public interface IUserRegisterRequestDTO
     {
-        Guid Id { get; set; }
         string Username { get; set; }
         string Password { get; set; }
         string Email { get; set; }
@@ -11,6 +10,5 @@
         List<string> Photos { get; set; }
         string About { get; set; }
         string Location { get; set; }
-        string Token { get; set; }
     }
 }

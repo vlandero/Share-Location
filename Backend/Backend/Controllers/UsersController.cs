@@ -1,5 +1,5 @@
-﻿using Backend.Services.UserService;
-using Microsoft.AspNetCore.Http;
+﻿using Backend.Models.DTOs.UserRegisterRequestDTO;
+using Backend.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -19,6 +19,19 @@ namespace Backend.Controllers
             var k = _userService.Test(ts);
             return Ok(k);
         }
+        [HttpPost("register")]
+        public IActionResult Register(UserRegisterRequestDTO u)
+        {
+            try
+            { 
+                var res = _userService.Registration(u);
+                return Ok(res);
+            }
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
+}
 
     }
 }

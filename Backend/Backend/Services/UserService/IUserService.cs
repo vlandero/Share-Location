@@ -1,10 +1,13 @@
-﻿using Backend.Models.User;
+﻿using Backend.Models.DTOs.UserRegisterRequestDTO;
+using Backend.Models.DTOs.UserToBeStoredDTO;
+using Backend.Models.User;
 
 namespace Backend.Services.UserService
 {
     public interface IUserService
     {
         string Test(string t);
-        User GetByIdPlaceholder(Guid id);
+        User GetById(Guid id);
+        UserToBeStoredDTO Registration(UserRegisterRequestDTO user);
     }
 }

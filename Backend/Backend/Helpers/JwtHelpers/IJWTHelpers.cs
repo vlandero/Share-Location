@@ -1,10 +1,10 @@
-﻿using Backend.Models.User;
+﻿using Backend.Models.DTOs.UserToBeStoredDTO;
 
 namespace Backend.Helpers.JwtHelpers
 {
     public interface IJWTHelpers
     {
-        string GenerateJwtToken(User u);
+        string GenerateJwtToken(UserToBeStoredDTO u);
         Guid ValidateJwtToken(string jwtToken);
     }
 }

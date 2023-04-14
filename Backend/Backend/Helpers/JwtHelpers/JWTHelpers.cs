@@ -1,4 +1,4 @@
-﻿using Backend.Models.User;
+﻿using Backend.Models.DTOs.UserToBeStoredDTO;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -15,7 +15,7 @@ namespace Backend.Helpers.JwtHelpers
         {
             _appSettings = appSettings.Value;
         }
-        public string GenerateJwtToken(User user)
+        public string GenerateJwtToken(UserToBeStoredDTO user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var appPrivateKey = Encoding.ASCII.GetBytes(_appSettings.JWTToken);
