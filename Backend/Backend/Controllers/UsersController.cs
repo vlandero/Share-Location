@@ -15,6 +15,14 @@ namespace Backend.Controllers
         {
             _userService = userService;
         }
+        private IActionResult _getException(Exception e)
+        {
+            if (e.InnerException == null)
+            {
+                return BadRequest(e.Message);
+            }
+            return BadRequest(e.InnerException.Message);
+        }
         [HttpPost("register")]
         public IActionResult Register(UserRegisterRequestDTO u)
         {
@@ -23,9 +31,9 @@ namespace Backend.Controllers
                 var res = _userService.Registration(u);
                 return Ok(res);
             }
-            catch (Microsoft.EntityFrameworkCore.DbUpdateException ex)
+            catch (Exception ex)
             {
-                return BadRequest(ex.InnerException.Message);
+                return _getException(ex);
             }
         }
         [HttpPost("modify")]
@@ -38,12 +46,7 @@ namespace Backend.Controllers
             }
             catch(Exception ex)
             {
-                if(ex.InnerException == null)
-                {
-                    return BadRequest(ex.Message);
-                }
-                return BadRequest(ex.InnerException.Message);
-
+                return _getException(ex);
             }
         }
         [HttpPost("connect")]
@@ -56,11 +59,7 @@ namespace Backend.Controllers
             }
             catch(Exception ex)
             {
-                if (ex.InnerException == null)
-                {
-                    return BadRequest(ex.Message);
-                }
-                return BadRequest(ex.InnerException.Message);
+                return _getException(ex);
             }
         }
         [HttpPost("reject")]
@@ -73,11 +72,7 @@ namespace Backend.Controllers
             }
             catch (Exception ex)
             {
-                if (ex.InnerException == null)
-                {
-                    return BadRequest(ex.Message);
-                }
-                return BadRequest(ex.InnerException.Message);
+                return _getException(ex);
             }
         }
         [HttpGet("feed/{username}")]
@@ -91,14 +86,8 @@ namespace Backend.Controllers
             }
             catch (Exception ex)
             {
-                if (ex.InnerException == null)
-                {
-                    return BadRequest(ex.Message);
-                }
-                return BadRequest(ex.InnerException.Message);
+                return _getException(ex);
             }
-
-
         }
 
     }

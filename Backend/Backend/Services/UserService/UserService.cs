@@ -86,12 +86,13 @@ namespace Backend.Services.UserService
         public List<UserToBeStoredDTO> GetUsersForFeed(Guid userId)
         {
             var allUsers = GetAllUsers();
-            var rejectedUsers = GetRejected(userId);
-
-            var users = _context.Users
-                .Where(u => !u.Rejecteds.Any(r => r.Id1 == userId || r.Id2 == userId))
-                .Where(u => !u.Connecteds.Any(r => r.Id1 == userId || r.Id2 == userId))
-                .Select(u => new UserToBeStoredDTO(u))
+            var rejectedUsers = GetRejected(userId)
+                .ToDictionary(u => u.Id1 == userId ? u.Id2 : u.Id1);
+            var connectedUsers = GetConnected(userId)
+                .ToDictionary(u => u.Id1 == userId ? u.Id2 : u.Id1);
+            var users = allUsers.Where(u => u.Id != userId
+                && !rejectedUsers.ContainsKey(u.Id)
+                && !connectedUsers.ContainsKey(u.Id))
                 .ToList();
             return Shuffle(users);
         }

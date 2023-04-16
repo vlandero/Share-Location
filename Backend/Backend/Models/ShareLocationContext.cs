@@ -17,23 +17,6 @@ namespace Backend.Models
             modelBuilder.Entity<Connected.Connected>().HasKey(a => new { a.Id1, a.Id2 });
             modelBuilder.Entity<Rejected.Rejected>().HasKey(a => new { a.Id1, a.Id2 });
 
-            modelBuilder.Entity<Connected.Connected>()
-                .HasOne(a => a.User1)
-                .WithMany(a => a.Connecteds)
-                .HasForeignKey(a => a.Id1);
-            modelBuilder.Entity<Connected.Connected>()
-                .HasOne(a => a.User2)
-                .WithMany(a => a.Connecteds)
-                .HasForeignKey(a => a.Id2);
-            modelBuilder.Entity<Rejected.Rejected>()
-                .HasOne(a => a.User1)
-                .WithMany(a => a.Rejecteds)
-                .HasForeignKey(a => a.Id1);
-            modelBuilder.Entity<Rejected.Rejected>()
-                .HasOne(a => a.User2)
-                .WithMany(a => a.Rejecteds)
-                .HasForeignKey(a => a.Id2);
-
             base.OnModelCreating(modelBuilder);
         }
     }

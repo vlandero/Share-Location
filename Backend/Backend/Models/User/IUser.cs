@@ -12,7 +12,5 @@
         string About { get; set; }
         string Location { get; set; }
         string Token { get; set; }
-        List<Connected.Connected> Connecteds { get; set; }
-        List<Rejected.Rejected> Rejecteds { get; set; }
     }
 }
