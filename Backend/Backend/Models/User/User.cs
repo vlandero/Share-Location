@@ -20,6 +20,8 @@ namespace Backend.Models.User
         public string About { get; set; }
         public string Location { get; set; }
         public string Token { get; set; }
+        public List<Connected.Connected> Connecteds { get; set; }
+        public List<Rejected.Rejected> Rejecteds { get; set; }
 
         [JsonConstructor]
         public User() { }
@@ -35,6 +37,8 @@ namespace Backend.Models.User
             About = u.About;
             Location = u.Location;
             Token = "";
+            Connecteds = new List<Connected.Connected>();
+            Rejecteds = new List<Rejected.Rejected>();
         }
     }
 }

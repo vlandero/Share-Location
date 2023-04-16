@@ -45,6 +45,8 @@ namespace Backend.Controllers
 
             }
         }
+        [HttpPost("connect")]
+        public IActionResult Connect()
 
     }
 }
