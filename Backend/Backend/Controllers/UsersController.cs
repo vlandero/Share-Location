@@ -89,6 +89,32 @@ namespace Backend.Controllers
                 return _getException(ex);
             }
         }
+        [HttpDelete("delete-connection")]
+        public IActionResult DeleteConnection(ManyToManyDTO con)
+        {
+            try
+            {
+                _userService.DeleteConnection(con.Id1, con.Id2);
+                return Ok(con);
+            }
+            catch (Exception ex)
+            {
+                return _getException(ex);
+            }
+        }
+        [HttpDelete("delete-rejection")]
+        public IActionResult DeleteRejection(ManyToManyDTO rej)
+        {
+            try
+            {
+                _userService.DeleteRejection(rej.Id1, rej.Id2);
+                return Ok(rej);
+            }
+            catch (Exception ex)
+            {
+                return _getException(ex);
+            }
+        }
 
     }
 }

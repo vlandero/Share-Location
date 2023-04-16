@@ -104,6 +104,17 @@ namespace Backend.Services.UserService
             _context.Add(con);
             _context.SaveChanges();
         }
+        public void DeleteConnection(Guid userId1, Guid userId2)
+        {
+            var user1 = GetById(userId1) ?? throw new Exception("Invalid user id");
+            var user2 = GetById(userId2) ?? throw new Exception("Invalid user id");
+            var con = _context.Connecteds.FirstOrDefault(a => (a.Id1 == user1.Id && a.Id2 == user2.Id) || (a.Id1 == user2.Id && a.Id2 == user1.Id));
+            if (con != null)
+            {
+                _context.Remove(con);
+                _context.SaveChanges();
+            }
+        }
         public void Reject(Guid userId1, Guid userId2)
         {
             var user1 = GetById(userId1) ?? throw new Exception("Invalid user id");
@@ -111,6 +122,17 @@ namespace Backend.Services.UserService
             var rej = new Rejected(user1, user2);
             _context.Add(rej);
             _context.SaveChanges();
+        }
+        public void DeleteRejection(Guid userId1, Guid userId2)
+        {
+            var user1 = GetById(userId1) ?? throw new Exception("Invalid user id");
+            var user2 = GetById(userId2) ?? throw new Exception("Invalid user id");
+            var rej = _context.Rejecteds.FirstOrDefault(a => (a.Id1 == user1.Id && a.Id2 == user2.Id) || (a.Id1 == user2.Id && a.Id2 == user1.Id));
+            if (rej != null)
+            {
+                _context.Remove(rej);
+                _context.SaveChanges();
+            }
         }
     }
 }
