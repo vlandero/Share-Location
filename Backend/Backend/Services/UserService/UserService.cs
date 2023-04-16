@@ -35,6 +35,10 @@ namespace Backend.Services.UserService
         {
             return _table.Find(id);
         }
+        public User GetByUsername(string username)
+        {
+            return _table.FirstOrDefault(u => u.Username == username);
+        }
         public UserToBeStoredDTO Registration(UserRegisterRequestDTO userDTO)
         {
             var user = new User(userDTO);
