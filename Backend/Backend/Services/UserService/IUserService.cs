@@ -1,4 +1,6 @@
-﻿using Backend.Models.DTOs.UserRegisterRequestDTO;
+﻿using Backend.Models.DTOs.UserLoginRequestDTO;
+using Backend.Models.DTOs.UserLoginResponseDTO;
+using Backend.Models.DTOs.UserRegisterRequestDTO;
 using Backend.Models.DTOs.UserToBeStoredDTO;
 using Backend.Models.User;
 
@@ -17,5 +19,6 @@ namespace Backend.Services.UserService
         void DeleteConnection(Guid userId1, Guid userId2);
         void Reject(Guid userId1, Guid userId2);
         void DeleteRejection(Guid userId1, Guid userId2);
+        UserLoginResponseDTO Login(UserLoginRequestDTO user);
     }
 }

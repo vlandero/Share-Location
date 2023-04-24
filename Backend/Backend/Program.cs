@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ShareLocationContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DB")));
 builder.Services.AddServices();
+builder.Services.AddUtils();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
