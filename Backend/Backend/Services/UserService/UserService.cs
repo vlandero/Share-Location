@@ -1,10 +1,14 @@
-﻿using Backend.Models;
+﻿using Backend.Helpers.JwtHelpers;
+using Backend.Models;
 using Backend.Models.Connected;
+using Backend.Models.DTOs.UserLoginRequestDTO;
+using Backend.Models.DTOs.UserLoginResponseDTO;
 using Backend.Models.DTOs.UserRegisterRequestDTO;
 using Backend.Models.DTOs.UserToBeStoredDTO;
 using Backend.Models.Rejected;
 using Backend.Models.User;
 using Microsoft.EntityFrameworkCore;
+using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace Backend.Services.UserService
 {
@@ -12,10 +16,12 @@ namespace Backend.Services.UserService
     {
         private readonly ShareLocationContext _context;
         private readonly DbSet<User> _table;
-        public UserService(ShareLocationContext context)
+        private readonly IJWTHelpers _jwtHelpers;
+        public UserService(ShareLocationContext context, IJWTHelpers jwtHelpers)
         {
             _context = context;
             _table = _context.Set<User>();
+            _jwtHelpers = jwtHelpers;
         }
 
         public List<UserToBeStoredDTO> Shuffle(List<UserToBeStoredDTO> list)
@@ -133,6 +139,19 @@ namespace Backend.Services.UserService
                 _context.Remove(rej);
                 _context.SaveChanges();
             }
+        }
+        public UserLoginResponseDTO Login(UserLoginRequestDTO request)
+        {
+            var user = GetByUsername(request.Username);
+            if (user == null || !BCryptNet.Verify(request.Password, user.Password))
+            {
+                throw new Exception("Invalid email or password");
+            }
+            var token = _jwtHelpers.GenerateJwtToken(new UserToBeStoredDTO(user));
+            return new UserLoginResponseDTO
+            {
+                Token = token,
+            };
         }
     }
 }

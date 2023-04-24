@@ -1,4 +1,5 @@
 ﻿using Backend.Models.DTOs.ManyToManyDTO;
+using Backend.Models.DTOs.UserLoginRequestDTO;
 using Backend.Models.DTOs.UserRegisterRequestDTO;
 using Backend.Models.DTOs.UserToBeStoredDTO;
 using Backend.Services.UserService;
@@ -109,6 +110,19 @@ namespace Backend.Controllers
             {
                 _userService.DeleteRejection(rej.Id1, rej.Id2);
                 return Ok(rej);
+            }
+            catch (Exception ex)
+            {
+                return _getException(ex);
+            }
+        }
+        [HttpPost("login")]
+        public IActionResult Login(UserLoginRequestDTO user)
+        {
+            try
+            {
+                var res = _userService.Login(user);
+                return Ok(res);
             }
             catch (Exception ex)
             {
