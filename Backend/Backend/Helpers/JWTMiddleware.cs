@@ -1,4 +1,5 @@
 ﻿using Backend.Helpers.JwtHelpers;
+using Backend.Models.DTOs.UserToBeStoredDTO;
 using Backend.Services.UserService;
 
 namespace Tema.Helpers
@@ -20,7 +21,11 @@ namespace Tema.Helpers
 
             if (userId != Guid.Empty)
             {
-                httpContext.Items["User"] = usersService.GetByIdPlaceholder(userId);
+                var usr = usersService.GetById(userId);
+                if (usr != null)
+                {
+                    httpContext.Items["User"] = new UserToBeStoredDTO(usr);
+                }
             }
 
             await _nextRequestDelegate(httpContext);
