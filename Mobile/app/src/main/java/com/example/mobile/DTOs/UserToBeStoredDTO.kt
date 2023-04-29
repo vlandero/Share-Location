@@ -1,12 +1,12 @@
 package com.example.mobile.DTOs
 
 data class UserToBeStoredDTO(
-    public val Id: String,
-    public val Username: String,
-    public val Email: String,
-    public val Name: String,
-    public val Phone: String,
-    public val Photos: ArrayList<String>,
-    public val About: String,
-    public val Location: String,
+    public val id: String,
+    public val username: String,
+    public val email: String,
+    public val name: String,
+    public val phone: String,
+    public val photos: ArrayList<String>,
+    public val about: String,
+    public val location: String,
 )
