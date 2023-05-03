@@ -82,6 +82,10 @@ namespace Backend.Controllers
             try
             {
                 var user = _userService.GetByUsername(username);
+                if(user == null)
+                {
+                    return BadRequest("User not found");
+                }
                 var users = _userService.GetUsersForFeed(user.Id);
                 return Ok(users);
             }
@@ -123,6 +127,23 @@ namespace Backend.Controllers
             {
                 var res = _userService.Login(user);
                 return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return _getException(ex);
+            }
+        }
+        [HttpGet("get-by-username/{username}")]
+        public IActionResult GetByUsername(string username)
+        {
+            try
+            {
+                var user = _userService.GetByUsername(username);
+                if(user == null)
+                {
+                    return BadRequest("User not found");
+                }
+                return Ok(user);
             }
             catch (Exception ex)
             {
