@@ -8,8 +8,11 @@ import com.example.mobile.DTOs.UserRegisterRequestDTO
 import com.example.mobile.DTOs.UserToBeStoredDTO
 import com.example.mobile.api.Auth
 import com.example.mobile.databinding.ActivityMainBinding
+import com.example.mobile.fragments.Chat
+import com.example.mobile.fragments.Explore
 import com.example.mobile.fragments.Home
 import com.example.mobile.fragments.Login
+import com.example.mobile.fragments.Profile
 import com.example.mobile.fragments.Register
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
@@ -21,10 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private fun notLoggedInFragments () {
         replaceFragment(Home())
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
@@ -34,10 +34,36 @@ class MainActivity : AppCompatActivity() {
 
                 else ->{
 
+                }
+            }
+            true
+        }
+    }
+
+    private fun loggedInFragments () {
+        replaceFragment(Explore())
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.explore_button -> replaceFragment(Explore())
+                R.id.profile_button -> replaceFragment(Profile())
+                R.id.chat_button -> replaceFragment(Chat())
+
+                else ->{
 
                 }
             }
             true
+        }
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val authenticated = false
+        if (authenticated) {
+            loggedInFragments()
+        } else {
+            notLoggedInFragments()
         }
 
         val apiButton = findViewById<android.widget.Button>(R.id.buttonApi);
