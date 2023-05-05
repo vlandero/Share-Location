@@ -1,11 +1,16 @@
 package com.example.mobile.fragments
 
+import ApiCall
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.mobile.DTOs.UserRegisterRequestDTO
+import com.example.mobile.DTOs.UserToBeStoredDTO
 import com.example.mobile.R
+import com.google.gson.Gson
+import androidx.appcompat.app.AppCompatActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +33,9 @@ class Home : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,5 +63,28 @@ class Home : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val apiButton = view.findViewById<android.widget.Button>(R.id.button2);
+        val apiCall = ApiCall()
+        val gson = Gson()
+        // example call with callbacks for register function
+        apiButton.setOnClickListener {
+            println("Button clicked")
+            val testDto = UserRegisterRequestDTO("test", "test", "test1", "test", "test", arrayListOf<String>("test","test"), "test", "test")
+            apiCall.registerUserAsync(testDto) { result, error ->
+                if (result != null) {
+                    val userToBeStored = gson.fromJson(result, UserToBeStoredDTO::class.java)
+                    println(userToBeStored)
+                } else {
+                    if (error != null) {
+                        println(error.message)
+                    }
+                }
+                println("after")
+            }
+        }
     }
 }
