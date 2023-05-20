@@ -2,4 +2,9 @@
     <string name="app_name">Mobile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="property">Property</string>
+    <string name="value">Value</string>
+    <string name="todo">TODO</string>
+    <string name="o">TODO</string>
+    <string name="save">Save</string>
 </resources>

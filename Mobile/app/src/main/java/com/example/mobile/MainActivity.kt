@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loggedInFragments () {
-        replaceFragment(Explore())
+        replaceFragment(Profile())
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.explore_button -> replaceFragment(Explore())
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val authenticated = false
+        val authenticated = true
         if (authenticated) {
             loggedInFragments()
         } else {
