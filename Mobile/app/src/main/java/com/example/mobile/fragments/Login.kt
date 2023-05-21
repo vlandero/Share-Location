@@ -1,10 +1,15 @@
 package com.example.mobile.fragments
 
+import ApiCall
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import com.example.mobile.DTOs.UserLoginRequestDTO
 import com.example.mobile.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,13 +35,51 @@ class Login : Fragment() {
         }
     }
 
+    private lateinit var etUsername: EditText
+    private lateinit var etPassword: EditText
+    private lateinit var btnLogin: Button
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        val view = inflater.inflate(R.layout.fragment_login, container, false)
+        etUsername = view.findViewById(R.id.etUsername)
+        etPassword = view.findViewById(R.id.etPassword)
+        btnLogin = view.findViewById(R.id.btnLogin)
+
+        btnLogin.setOnClickListener {
+            val username = etUsername.text.toString()
+            val password = etPassword.text.toString()
+            val dto = UserLoginRequestDTO(username, password)
+            val apiCall = ApiCall()
+            apiCall.loginUserAsync(dto) { result, exception ->
+                if (exception != null) {
+                    println("Login error: $exception")
+                    // Handle login error
+                } else {
+                    //print result
+                    println("Login result: $result")
+                    showLoginSuccessPopup()
+                }
+            }
+            println("Login button clicked")
+        }
+
+        return view
     }
+
+    private fun showLoginSuccessPopup() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        dialogBuilder.setTitle("Login Successful")
+        dialogBuilder.setMessage("You have successfully logged in.")
+        dialogBuilder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = dialogBuilder.create()
+        dialog.show()
+    }
+
 
     companion object {
         /**

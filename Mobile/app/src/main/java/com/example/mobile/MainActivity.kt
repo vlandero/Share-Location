@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

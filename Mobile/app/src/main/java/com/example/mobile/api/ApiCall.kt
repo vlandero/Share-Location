@@ -86,10 +86,12 @@ class ApiCall {
                         } else if(e.message?.contains("IX_Users_Username") == true) {
                             callback(null, Exception("Username already exists"))
                         } else {
+                            println("Error registering user ${e}")
                             callback(null, e)
                         }
                     }
                     else {
+                        println("User registered successfully")
                         callback(result, null)
                     }
                 }

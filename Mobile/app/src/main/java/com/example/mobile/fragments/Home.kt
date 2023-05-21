@@ -73,7 +73,7 @@ class Home : Fragment() {
         // example call with callbacks for register function
         apiButton.setOnClickListener {
             println("Button clicked")
-            val testDto = UserRegisterRequestDTO("test", "test", "test1", "test", "test", arrayListOf<String>("test","test"), "test", "test")
+            val testDto = UserRegisterRequestDTO("testaaaR", "test", "test1", "test", "test", arrayListOf<String>("test","test"), "test", "test")
             apiCall.registerUserAsync(testDto) { result, error ->
                 if (result != null) {
                     val userToBeStored = gson.fromJson(result, UserToBeStoredDTO::class.java)
