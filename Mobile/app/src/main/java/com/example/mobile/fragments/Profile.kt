@@ -6,28 +6,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.mobile.R
+import com.example.mobile.adapters.PhotoAdapter
 import com.example.mobile.adapters.ProfilePropertyAdapter
 import java.io.Serializable
 
 private const val PROPERTYLIST = "propertyList"
+private const val PHOTOS = "photos"
 
 class Profile : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var propertyList = listOf(
-        Pair("Property 1", "Value 1"),
-        Pair("Property 2", "Value 2"),
-        Pair("Property 3", "Value 3")
-    )
+
+    private var propertyList: MutableList<Pair<String, String>> = mutableListOf()
+    private var photos : MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = activity?.intent
         arguments?.let {
-            propertyList = it.getSerializable(PROPERTYLIST) as? List<Pair<String, String>> ?: emptyList()
+            propertyList = it.getSerializable(PROPERTYLIST) as? MutableList<Pair<String, String>> ?: mutableListOf()
+            photos = it.getSerializable(PHOTOS) as? MutableList<String> ?: mutableListOf()
         }
     }
 
@@ -41,6 +42,7 @@ class Profile : Fragment() {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -50,24 +52,34 @@ class Profile : Fragment() {
 
         button.setOnClickListener {
             println(propertyList)
-            println("Save button clicked")
+            println("Save button clicked") // TODO de facut save aici
         }
 
         val adapter = ProfilePropertyAdapter(propertyList){
             propertyList = it;
         }
         recyclerView.adapter = adapter
-
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-    }
 
+        val photoAdapter = PhotoAdapter(photos)
+        val viewPager2 = view.findViewById<ViewPager2>(R.id.photoViewPager)
+        viewPager2.adapter = photoAdapter
+        viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        val addPhotoButton = view.findViewById<ImageView>(R.id.add_picture)
+        addPhotoButton.setOnClickListener {
+            photos.add("https://picsum.photos/200/300") // TODO de facut upload aici
+            photoAdapter.notifyDataSetChanged()
+        }
+    }
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: List<Pair<String, String>>) =
+        fun newInstance(userprops: MutableList<Pair<String, String>>, photos: MutableList<String>) =
             Profile().apply {
                 arguments = Bundle().apply {
-                    putSerializable(PROPERTYLIST, param1 as Serializable)
+                    putSerializable(PROPERTYLIST, userprops as Serializable)
+                    putSerializable(PHOTOS, photos as Serializable)
                 }
             }
     }

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile.R
 
-class ProfilePropertyAdapter(private var propertyList: List<Pair<String, String>>, private var callback: (List<Pair<String, String>>) -> Unit) :
+class ProfilePropertyAdapter(private var propertyList: MutableList<Pair<String, String>>, private var callback: (MutableList<Pair<String, String>>) -> Unit) :
     RecyclerView.Adapter<ProfilePropertyAdapter.ProfilePropertyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilePropertyViewHolder {
@@ -67,11 +67,12 @@ class ProfilePropertyAdapter(private var propertyList: List<Pair<String, String>
                 // Update the property value with the text from editPropertyValueEditText
                 val propertyValue = editPropertyValueEditText.text.toString()
                 propertyValueTextView.text = propertyValue
-                val updatedPropertyList = propertyList.mapIndexed { index, pair ->
-                    if (index == position) {
-                        Pair(pair.first, propertyValue)
+                val updatedPropertyList: MutableList<Pair<String, String>> = mutableListOf()
+                for (i in 0 until propertyList.size) {
+                    if (i == position) {
+                        updatedPropertyList.add(Pair(property.first, propertyValue))
                     } else {
-                        pair
+                        updatedPropertyList.add(propertyList[i])
                     }
                 }
                 propertyList = updatedPropertyList
