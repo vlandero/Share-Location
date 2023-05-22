@@ -1,20 +1,13 @@
 package com.example.mobile
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.mobile.DTOs.UserRegisterRequestDTO
 import com.example.mobile.DTOs.UserToBeStoredDTO
 import com.example.mobile.databinding.ActivityMainBinding
-import com.example.mobile.fragments.Chat
-import com.example.mobile.fragments.Explore
-import com.example.mobile.fragments.Home
-import com.example.mobile.fragments.Login
-import com.example.mobile.fragments.Profile
-import com.example.mobile.fragments.Register
+import com.example.mobile.fragments.*
 import com.example.mobile.helpers.Alerts
-import com.example.mobile.helpers.Images
 import com.example.mobile.helpers.LocalStorage
 import com.google.gson.Gson
 
@@ -102,4 +95,7 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.frame_layout, fragment)
         fragmentTransaction.commit()
     }
+
+
+
 }

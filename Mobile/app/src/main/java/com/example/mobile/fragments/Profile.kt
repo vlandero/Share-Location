@@ -1,20 +1,31 @@
 package com.example.mobile.fragments
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.provider.MediaStore
+import android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mobile.R
 import com.example.mobile.adapters.PhotoAdapter
 import com.example.mobile.adapters.ProfilePropertyAdapter
+import com.example.mobile.helpers.Images
+import java.io.ByteArrayOutputStream
 import java.io.Serializable
+
 
 private const val PROPERTYLIST = "propertyList"
 private const val PHOTOS = "photos"
@@ -41,8 +52,13 @@ class Profile : Fragment() {
         println("Profile.onCreateView")
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
-
-    @SuppressLint("NotifyDataSetChanged")
+    private fun openGallery() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_GET_CONTENT
+        intent.type = "image/*"
+        startActivityForResult(intent, GALLERY_REQUEST_CODE)
+    }
+    @SuppressLint("NotifyDataSetChanged", "IntentReset")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -52,6 +68,7 @@ class Profile : Fragment() {
 
         button.setOnClickListener {
             println(propertyList)
+            // save in local storage si in api
             println("Save button clicked") // TODO de facut save aici
         }
 
@@ -68,12 +85,26 @@ class Profile : Fragment() {
 
         val addPhotoButton = view.findViewById<ImageView>(R.id.add_picture)
         addPhotoButton.setOnClickListener {
-            photos.add("https://picsum.photos/200/300") // TODO de facut upload aici
+            println("clicked add photo button")
+            openGallery()
+            photos.add(Images.img1) // TODO de facut upload aici
             photoAdapter.notifyDataSetChanged()
         }
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == Profile.GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val selectedImageUri: Uri? = data?.data
+            println("OK")
+
+            // Use the base64Image as needed
+        }
+    }
+
 
     companion object {
+        const val GALLERY_REQUEST_CODE = 123
         @JvmStatic
         fun newInstance(userprops: MutableList<Pair<String, String>>, photos: MutableList<String>) =
             Profile().apply {

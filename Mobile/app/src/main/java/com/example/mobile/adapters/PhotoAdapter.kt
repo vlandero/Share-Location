@@ -1,5 +1,6 @@
 package com.example.mobile.adapters
 
+import android.annotation.SuppressLint
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
