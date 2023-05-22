@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(ShareLocationContext))]
-    partial class ShareLocationContextModelSnapshot : ModelSnapshot
+    [Migration("20230522083136_addage")]
+    partial class addage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,9 +82,8 @@ namespace Backend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Age")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Age")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Email")
                         .IsRequired()
