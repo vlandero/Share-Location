@@ -153,5 +153,22 @@ namespace Backend.Services.UserService
                 Token = token,
             };
         }
+
+        public void DeleteUser(Guid id)
+        {
+            var user = GetById(id) ?? throw new Exception("Invalid user id");
+            _context.Remove(user);
+            _context.SaveChanges();
+        }
+
+        public void DeleteAll()
+        {
+            var users = _table.ToList();
+            foreach (var user in users)
+            {
+                _context.Remove(user);
+            }
+            _context.SaveChanges();
+        }
     }
 }
