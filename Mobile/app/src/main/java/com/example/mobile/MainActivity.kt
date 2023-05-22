@@ -25,9 +25,9 @@ class MainActivity : AppCompatActivity() {
     private var authenticated = false
 
     private fun notLoggedInFragments () {
+        replaceFragment(Home())
         binding.bottomNavigationViewNotLoggedIn.visibility = View.VISIBLE
         binding.bottomNavigationViewLoggedIn.visibility = View.GONE
-        replaceFragment(Home())
         binding.bottomNavigationViewNotLoggedIn.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.home_button -> replaceFragment(Home())
@@ -44,10 +44,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun getProfilePairs(user: UserToBeStoredDTO) : MutableList<Pair<String, String>>{
         val profilePairs = emptyList<Pair<String,String>>().toMutableList()
+        profilePairs += Pair("Username", user.username)
         profilePairs += Pair("Name", user.name)
-        profilePairs += Pair("Email", user.email)
+        profilePairs += Pair("Age", user.age)
         profilePairs += Pair("Location", user.location)
-        profilePairs += Pair("About", "fasdffdadsgsa fd afdg sfd gsdf gsfdger gfdg daf")
+        profilePairs += Pair("About", user.about)
         return profilePairs
     }
 
@@ -58,9 +59,9 @@ class MainActivity : AppCompatActivity() {
         }
         val profilePairs = getProfilePairs(user)
         val pictures = user.photos
+        replaceFragment(Explore())
         binding.bottomNavigationViewNotLoggedIn.visibility = View.GONE
         binding.bottomNavigationViewLoggedIn.visibility = View.VISIBLE
-        replaceFragment(Explore())
         binding.bottomNavigationViewLoggedIn.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.explore_button -> replaceFragment(Explore())
@@ -77,7 +78,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // de test, de comentat si de decomentat
-//        val testDto = UserRegisterRequestDTO("test", "test", "test1", "test", "test", arrayListOf<String>(Images.img1, Images.img1), "test gmwnrk aflk asdhfasliuhgfas rgbasrhalufisd gfjbgsbgwlebgew gbfdsijghsdrigjes sfduighsdrioughwrlg sdfghwrgliweruhges werhgesbgsle", "test")
+//        val testDto = UserRegisterRequestDTO("test", "test", "10", "test1", "test", "test", arrayListOf<String>(Images.img1, Images.img1), "test gmwnrk aflk asdhfasliuhgfas rgbasrhalufisd gfjbgsbgwlebgew gbfdsijghsdrigjes sfduighsdrioughwrlg sdfghwrgliweruhges werhgesbgsle", "test")
 //        LocalStorage.storeInLocalStorage(this, "user", Gson().toJson(testDto))
 //        LocalStorage.removeFromLocalStorage(this, "user")
         var user: UserToBeStoredDTO? = null
