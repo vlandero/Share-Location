@@ -1,8 +1,8 @@
 package com.example.mobile.helpers
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.example.mobile.fragments.Profile
 
 class LocalStorage {
     companion object{
