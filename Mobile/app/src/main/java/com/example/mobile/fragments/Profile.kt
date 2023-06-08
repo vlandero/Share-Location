@@ -105,15 +105,15 @@ class Profile : Fragment() {
                 photos = ArrayList(photos),
                 phone = userFromLocalStorage!!.phone
             )
-            apiCall.modifyUserAsync(newUser){ result, error ->
-                if(error != null){
-                    Alerts.alert(requireActivity(), "Error", error.message.toString())
-                    return@modifyUserAsync
-                }
-                LocalStorage.storeInLocalStorage(requireActivity(), "user", Gson().toJson(newUser))
-                Alerts.alert(requireActivity(), "Success", "Profile updated successfully")
-            }
-            println("Save button clicked") // TODO de facut save aici
+//            apiCall.modifyUserAsync(newUser){ result, error ->
+//                if(error != null){
+//                    Alerts.alert(requireActivity(), "Error", error.message.toString())
+//                    return@modifyUserAsync
+//                }
+//                LocalStorage.storeInLocalStorage(requireActivity(), "user", Gson().toJson(newUser))
+//                Alerts.alert(requireActivity(), "Success", "Profile updated successfully")
+//            } // TODO de decomentat cand se face login
+            println("Save button clicked")
         }
 
         val adapter = ProfilePropertyAdapter(propertyList){
