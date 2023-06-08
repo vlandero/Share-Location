@@ -1,5 +1,6 @@
 package com.example.mobile.adapters
 
+import android.annotation.SuppressLint
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
@@ -9,14 +10,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mobile.R
 
-class PhotoAdapter(private val photos: MutableList<String>): RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
-
+class PhotoAdapter(private val photos: MutableList<String>, private val deleteCallback: (Int) -> Unit): RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
+    @SuppressLint("NotifyDataSetChanged")
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var pic: ImageView = itemView.findViewById(R.id.photoImageView)
+        var delete: ImageView = itemView.findViewById(R.id.deletephoto)
         init {
             itemView.setOnClickListener {
                 println("PhotoAdapter.ViewHolder.onClick")
                 println(pic)
+            }
+            delete.setOnClickListener {
+                // add callback
+                deleteCallback(adapterPosition)
+                // notify dupa callback, altfel daca se sterge inainte de callback nu mai avem elementul
+                notifyDataSetChanged()
             }
         }
     }
@@ -32,7 +40,7 @@ class PhotoAdapter(private val photos: MutableList<String>): RecyclerView.Adapte
         Glide.with(holder.itemView.context)
             .asBitmap()
             .load(photoBytes)
-            .placeholder(R.drawable.baseline_broken_image_24)
+            .placeholder(R.drawable.baseline_broken_image_24) // adaugam un placeholder in caz ca nu se incarca imaginea
             .into(holder.pic)
     }
 
