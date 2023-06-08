@@ -1,16 +1,22 @@
 package com.example.mobile.fragments
 
 import ApiCall
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +29,7 @@ import com.example.mobile.helpers.Alerts
 import com.example.mobile.helpers.Images
 import com.example.mobile.helpers.LocalStorage
 import com.google.gson.Gson
+import java.io.ByteArrayOutputStream
 import java.io.Serializable
 
 
@@ -33,6 +40,7 @@ class Profile : Fragment() {
 
     private var propertyList: MutableList<Pair<String, String>> = mutableListOf()
     private var photos : MutableList<String> = mutableListOf()
+    private lateinit var photoAdapter: PhotoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,15 +60,16 @@ class Profile : Fragment() {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
     private fun openGallery() {
-        val intent = Intent()
-        intent.action = Intent.ACTION_GET_CONTENT
-        intent.type = "image/*"
-        startActivityForResult(intent, GALLERY_REQUEST_CODE)
+        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val chooserIntent = Intent.createChooser(galleryIntent, "Select Image")
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(cameraIntent))
+
+        startActivityForResult(chooserIntent, GALLERY_REQUEST_CODE)
     }
-    @SuppressLint("NotifyDataSetChanged", "IntentReset")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val photoAdapter = PhotoAdapter(photos){index ->
+        photoAdapter = PhotoAdapter(photos){index ->
             println("Index: $index")
             photos.removeAt(index)
         }
@@ -72,10 +81,10 @@ class Profile : Fragment() {
         button.setOnClickListener {
             println(propertyList)
             // save in local storage si in api
-            val userFromLocalStorage: UserToBeStoredDTO? = null
+            var userFromLocalStorage: UserToBeStoredDTO? = null
             val userFromLocalStorageString: String? = LocalStorage.getFromLocalStorage(requireActivity(), "user")
             if(userFromLocalStorageString != null) {
-                val userFromLocalStorage: UserToBeStoredDTO = Gson().fromJson(userFromLocalStorageString, UserToBeStoredDTO::class.java)
+                userFromLocalStorage = Gson().fromJson(userFromLocalStorageString, UserToBeStoredDTO::class.java)
                 println(userFromLocalStorage)
             }
             else{
@@ -96,15 +105,15 @@ class Profile : Fragment() {
                 photos = ArrayList(photos),
                 phone = userFromLocalStorage!!.phone
             )
-//            apiCall.modifyUserAsync(newUser){ result, error ->
-//                if(error != null){
-//                    Alerts.alert(requireActivity(), "Error", error.message.toString())
-//                    return@modifyUserAsync
-//                }
-//                LocalStorage.storeInLocalStorage(requireActivity(), "user", Gson().toJson(newUser))
-//                Alerts.alert(requireActivity(), "Success", "Profile updated successfully")
-//            } // TODO de decomentat cand se face login
-            println("Save button clicked")
+            apiCall.modifyUserAsync(newUser){ result, error ->
+                if(error != null){
+                    Alerts.alert(requireActivity(), "Error", error.message.toString())
+                    return@modifyUserAsync
+                }
+                LocalStorage.storeInLocalStorage(requireActivity(), "user", Gson().toJson(newUser))
+                Alerts.alert(requireActivity(), "Success", "Profile updated successfully")
+            }
+            println("Save button clicked") // TODO de facut save aici
         }
 
         val adapter = ProfilePropertyAdapter(propertyList){
@@ -120,25 +129,66 @@ class Profile : Fragment() {
         val addPhotoButton = view.findViewById<ImageView>(R.id.add_picture)
         addPhotoButton.setOnClickListener {
             println("clicked add photo button")
-//            openGallery()
-            photos.add(Images.img1) // TODO de facut upload aici
-            photoAdapter!!.notifyDataSetChanged()
+            openGallery()
+
         }
     }
+    private fun convertBitmapToBase64(bitmap: Bitmap): String {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+        val base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT)
+        return base64Image
+    }
+    @SuppressLint("NotifyDataSetChanged")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == Profile.GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val selectedImageUri: Uri? = data?.data
-            println("OK")
-
-            // Use the base64Image as needed
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                GALLERY_REQUEST_CODE -> {
+                    if (data?.data != null) {
+                        // Image selected from gallery
+                        val selectedImageUri = data.data
+                        val selectedImageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, selectedImageUri)
+                        val base64Image = convertBitmapToBase64(selectedImageBitmap)
+                        photos.add(base64Image)
+                        photoAdapter.notifyDataSetChanged()
+                    } else if (data?.extras?.get("data") != null) {
+                        // Image captured from camera
+                        val selectedImageBitmap = data.extras?.get("data") as Bitmap
+                        val base64Image = convertBitmapToBase64(selectedImageBitmap)
+                        photos.add(base64Image)
+                        photoAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
+    }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            1 -> {
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED) {
+                    if ((ContextCompat.checkSelfPermission(requireContext(),
+                            Manifest.permission.CAMERA) ===
+                                PackageManager.PERMISSION_GRANTED)) {
+                        Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
+                        openGallery()
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
         }
     }
 
 
     companion object {
-        const val GALLERY_REQUEST_CODE = 123
+        const val GALLERY_REQUEST_CODE = 200
+        const val CAMERA_REQUEST_CODE = 1
         @JvmStatic
         fun newInstance(userprops: MutableList<Pair<String, String>>, photos: MutableList<String>) =
             Profile().apply {
@@ -149,3 +199,5 @@ class Profile : Fragment() {
             }
     }
 }
+
+
