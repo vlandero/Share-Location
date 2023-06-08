@@ -96,5 +96,8 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.clear()
+    }
 }
