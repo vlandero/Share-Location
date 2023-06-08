@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mobile.R
 
-class PhotoAdapter(private val photos: MutableList<String>, private val callback: (Int) -> Unit): RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
+class PhotoAdapter(private val photos: MutableList<String>, private val deleteCallback: (Int) -> Unit): RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
     @SuppressLint("NotifyDataSetChanged")
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var pic: ImageView = itemView.findViewById(R.id.photoImageView)
@@ -21,12 +21,10 @@ class PhotoAdapter(private val photos: MutableList<String>, private val callback
                 println(pic)
             }
             delete.setOnClickListener {
-                // delete photo
-                val deletedPhoto = photos.removeAt(adapterPosition)
-                println("Adapter position: $adapterPosition")
-                notifyDataSetChanged()
                 // add callback
-                callback(adapterPosition)
+                deleteCallback(adapterPosition)
+                // notify dupa callback, altfel daca se sterge inainte de callback nu mai avem elementul
+                notifyDataSetChanged()
             }
         }
     }
@@ -47,8 +45,5 @@ class PhotoAdapter(private val photos: MutableList<String>, private val callback
     }
 
     override fun getItemCount(): Int = photos.size
-    interface OnPhotoDeleteListener {
-        fun onPhotoDeleted(photo: String, pos: Int)
-    }
 
 }

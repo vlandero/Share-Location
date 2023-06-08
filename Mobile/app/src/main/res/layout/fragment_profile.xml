@@ -52,6 +52,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/photoViewPager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/photoViewPager" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
