@@ -1,16 +1,20 @@
 package com.example.mobile.fragments
 
+import ApiCall
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.mobile.DTOs.UserToBeStoredDTO
 import com.example.mobile.R
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.Serializable
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_USER = "ARG_USER"
 
 /**
  * A simple [Fragment] subclass.
@@ -19,14 +23,11 @@ private const val ARG_PARAM2 = "param2"
  */
 class Explore : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+    private var paramUser: UserToBeStoredDTO? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            paramUser = it.getSerializable(ARG_USER) as UserToBeStoredDTO
         }
     }
 
@@ -36,6 +37,25 @@ class Explore : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_explore, container, false)
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var userArray = ArrayList<UserToBeStoredDTO>()
+        val gson = Gson()
+        val usersType = object : TypeToken<List<UserToBeStoredDTO>>() {}.type
+
+        paramUser?.username?.let { username ->
+            ApiCall().getFeedAsync(username) { result, error ->
+                if (error != null) {
+                    println("Error: ${error.message}")
+                } else {
+                    result?.let {
+                        userArray = gson.fromJson(it, usersType)
+                        println("User array: " + userArray)
+                    }
+                }
+            }
+        }
     }
 
     companion object {
@@ -49,11 +69,10 @@ class Explore : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(user: UserToBeStoredDTO) =
             Explore().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putSerializable(ARG_USER, user as Serializable)
                 }
             }
     }

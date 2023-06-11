@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         val pictures = user.photos
         println(pictures)
         runOnUiThread {
-            replaceFragment(Explore())
+            replaceFragment(Explore.newInstance(user))
             binding.bottomNavigationViewNotLoggedIn.visibility = View.GONE
             binding.bottomNavigationViewLoggedIn.visibility = View.VISIBLE
             binding.bottomNavigationViewLoggedIn.setOnItemSelectedListener {

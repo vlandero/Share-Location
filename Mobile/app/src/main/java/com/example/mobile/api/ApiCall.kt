@@ -202,11 +202,12 @@ class ApiCall {
     @OptIn(DelicateCoroutinesApi::class)
     fun getFeedAsync(name: String, callback: (String?, Exception?) -> Unit) {
         val url = mainUrl + "Users/feed/$name"
+        println("url: " + url)
         GlobalScope.launch {
             try{
                 getApiCall(url) { result, e ->
                     if (e != null) {
-                        callback(null, Exception("Error getting feed"))
+                        callback(null, e)
                     }
                     else {
                         callback(result, null)
