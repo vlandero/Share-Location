@@ -1,7 +1,7 @@
 package com.example.mobile.DTOs
 
 data class UserRegisterRequestDTO(
-    public val username: UserToBeStoredDTO,
+    public val username: String,
     public val password: String,
     public val age: String,
     public val email: String,
