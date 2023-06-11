@@ -22,17 +22,6 @@
 
         </androidx.viewpager2.widget.ViewPager2>
 
-        <Button
-            android:id="@+id/savebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="35dp"
-            android:text="@string/save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profileproperties"
             android:layout_width="407dp"
@@ -52,6 +41,27 @@
             app:layout_constraintBottom_toBottomOf="@+id/photoViewPager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/photoViewPager" />
+
+        <Button
+            android:id="@+id/savebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="35dp"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/logoutbutton"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/logoutbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="35dp"
+            android:layout_marginStart="16dp"
+            android:text="Logout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/savebutton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

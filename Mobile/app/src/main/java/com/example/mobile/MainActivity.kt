@@ -14,27 +14,60 @@ import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    internal lateinit var binding: ActivityMainBinding
     private var authenticated = false
 
-    private fun notLoggedInFragments () {
-        replaceFragment(Home())
-        binding.bottomNavigationViewNotLoggedIn.visibility = View.VISIBLE
-        binding.bottomNavigationViewLoggedIn.visibility = View.GONE
-        binding.bottomNavigationViewNotLoggedIn.setOnItemSelectedListener {
-            when(it.itemId){
-                R.id.home_button -> replaceFragment(Home())
-                R.id.login_button -> replaceFragment(Login())
-                R.id.register_button -> replaceFragment(Register())
+    fun notLoggedInFragments () {
+        runOnUiThread {
+            replaceFragment(Home())
+            binding.bottomNavigationViewNotLoggedIn.visibility = View.VISIBLE
+            binding.bottomNavigationViewLoggedIn.visibility = View.GONE
+            binding.bottomNavigationViewNotLoggedIn.setOnItemSelectedListener {
+                when (it.itemId) {
+                    R.id.home_button -> replaceFragment(Home())
+                    R.id.login_button -> replaceFragment(Login())
+                    R.id.register_button -> replaceFragment(Register())
 
-                else ->{
+                    else -> {
 
+                    }
                 }
+                true
             }
-            true
         }
     }
+    fun loggedInFragments (user: UserToBeStoredDTO?) {
+        if(user == null) {
+            Alerts.alert(this, "Error", "User not found")
+            return
+        }
+        val profilePairs = getProfilePairs(user)
+        println(profilePairs)
+        val pictures = user.photos
+        println(pictures)
+        runOnUiThread {
+            replaceFragment(Explore())
+            binding.bottomNavigationViewNotLoggedIn.visibility = View.GONE
+            binding.bottomNavigationViewLoggedIn.visibility = View.VISIBLE
+            binding.bottomNavigationViewLoggedIn.setOnItemSelectedListener {
+                when (it.itemId) {
+                    R.id.explore_button -> replaceFragment(Explore())
+                    R.id.profile_button -> replaceFragment(
+                        Profile.newInstance(
+                            profilePairs,
+                            pictures
+                        )
+                    )
+                    R.id.chat_button -> replaceFragment(Chat())
 
+                    else -> {
+
+                    }
+                }
+                true
+            }
+        }
+    }
     private fun getProfilePairs(user: UserToBeStoredDTO) : MutableList<Pair<String, String>>{
         val profilePairs = emptyList<Pair<String,String>>().toMutableList()
         profilePairs += Pair("Username", user.username)
@@ -43,30 +76,6 @@ class MainActivity : AppCompatActivity() {
         profilePairs += Pair("Location", user.location)
         profilePairs += Pair("About", user.about)
         return profilePairs
-    }
-
-    private fun loggedInFragments (user: UserToBeStoredDTO?) {
-        if(user == null) {
-            Alerts.alert(this, "Error", "User not found")
-            return
-        }
-        val profilePairs = getProfilePairs(user)
-        val pictures = user.photos
-        replaceFragment(Explore())
-        binding.bottomNavigationViewNotLoggedIn.visibility = View.GONE
-        binding.bottomNavigationViewLoggedIn.visibility = View.VISIBLE
-        binding.bottomNavigationViewLoggedIn.setOnItemSelectedListener {
-            when(it.itemId){
-                R.id.explore_button -> replaceFragment(Explore())
-                R.id.profile_button -> replaceFragment(Profile.newInstance(profilePairs, pictures))
-                R.id.chat_button -> replaceFragment(Chat())
-
-                else ->{
-
-                }
-            }
-            true
-        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,14 +97,12 @@ class MainActivity : AppCompatActivity() {
             notLoggedInFragments()
         }
     }
-
-    private fun replaceFragment(fragment: Fragment){
+    fun replaceFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout, fragment)
         fragmentTransaction.commit()
     }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.clear()
