@@ -11,6 +11,7 @@ namespace Backend.Models.User
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
+        public string Age { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
@@ -29,6 +30,7 @@ namespace Backend.Models.User
             Username = u.Username;
             Password = BCryptNet.HashPassword(u.Password);
             Name = u.Name;
+            Age = u.Age;
             Email = u.Email;
             Phone = u.Phone;
             Photos = u.Photos;

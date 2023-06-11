@@ -3,6 +3,7 @@
     public interface IUserRegisterRequestDTO
     {
         string Username { get; set; }
+        string Age { get; set; }
         string Password { get; set; }
         string Email { get; set; }
         string Name { get; set; }
