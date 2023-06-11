@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         // de test, de comentat si de decomentat
 //        val testDto = UserRegisterRequestDTO("test", "test", "10", "test1", "test", "test", arrayListOf<String>(Images.img1, Images.img1), "test gmwnrk aflk asdhfasliuhgfas rgbasrhalufisd gfjbgsbgwlebgew gbfdsijghsdrigjes sfduighsdrioughwrlg sdfghwrgliweruhges werhgesbgsle", "test")
 //        LocalStorage.storeInLocalStorage(this, "user", Gson().toJson(testDto))
-        LocalStorage.removeFromLocalStorage(this, "user")
+//        LocalStorage.removeFromLocalStorage(this, "user")
         var user: UserToBeStoredDTO? = null
         val userJson = LocalStorage.getFromLocalStorage(this, "user")
         if (userJson != null) {
