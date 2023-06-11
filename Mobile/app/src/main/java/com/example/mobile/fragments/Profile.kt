@@ -95,7 +95,7 @@ class Profile : Fragment() {
 
             val apiCall = ApiCall()
             val newUser = UserToBeStoredDTO(
-                id=userFromLocalStorage!!.id,
+                id = userFromLocalStorage!!.id,
                 username = propertyList[0].second,
                 name = propertyList[1].second,
                 age = propertyList[2].second,

@@ -109,7 +109,7 @@ class ApiCall {
                 val json = Gson().toJson(dto)
                 postApiCall(json, url) { result, e ->
                     if (e != null) {
-                        callback(null, Exception("Invalid username or password"))
+                        callback(null, e)
                     }
                     else {
                         callback(result, null)
@@ -121,6 +121,24 @@ class ApiCall {
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getUserByIdAsync(id: String, callback: (String?, Exception?) -> Unit) {
+        val url = mainUrl + "Users/get-by-id/" + id
+        GlobalScope.launch {
+            try {
+                getApiCall(url) { result, e ->
+                    if (e != null) {
+                        callback(null, e)
+                    }
+                    else {
+                        callback(result, null)
+                    }
+                }
+            } catch (e: Exception) {
+                callback(null, e)
+            }
+        }
+    }
     @OptIn(DelicateCoroutinesApi::class)
     fun modifyUserAsync(dto: UserToBeStoredDTO, callback: (String?, Exception?) -> Unit) {
         val url = mainUrl + "Users/modify"
