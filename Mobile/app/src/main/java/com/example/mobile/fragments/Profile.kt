@@ -13,6 +13,7 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -27,6 +28,7 @@ import com.example.mobile.adapters.PhotoAdapter
 import com.example.mobile.adapters.ProfilePropertyAdapter
 import com.example.mobile.helpers.Alerts
 import com.example.mobile.helpers.Images
+import com.example.mobile.MainActivity
 import com.example.mobile.helpers.LocalStorage
 import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
@@ -69,6 +71,18 @@ class Profile : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val logoutButton = view.findViewById<Button>(R.id.logoutbutton)
+
+        // Set an onClickListener to handle logout
+        logoutButton.setOnClickListener {
+            LocalStorage.removeFromLocalStorage(requireActivity(), "user")
+            (requireActivity() as MainActivity).apply {
+                notLoggedInFragments()
+            }
+        }
+
+
         photoAdapter = PhotoAdapter(photos){index ->
             println("Index: $index")
             photos.removeAt(index)
@@ -95,7 +109,7 @@ class Profile : Fragment() {
 
             val apiCall = ApiCall()
             val newUser = UserToBeStoredDTO(
-                id=userFromLocalStorage!!.id,
+                id = userFromLocalStorage!!.id,
                 username = propertyList[0].second,
                 name = propertyList[1].second,
                 age = propertyList[2].second,

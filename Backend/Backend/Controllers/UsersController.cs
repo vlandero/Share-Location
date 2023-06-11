@@ -150,6 +150,23 @@ namespace Backend.Controllers
                 return _getException(ex);
             }
         }
+        [HttpGet("get-by-id/{id}")]
+        public IActionResult GetByGuid(Guid id)
+        {
+            try
+            {
+                var user = _userService.GetById(id);
+                if (user == null)
+                {
+                    return BadRequest("User not found");
+                }
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return _getException(ex);
+            }
+        }
 
         //delete all users
         [HttpDelete("delete-all")]
