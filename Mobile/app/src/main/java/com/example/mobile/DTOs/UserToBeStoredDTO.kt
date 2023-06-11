@@ -1,5 +1,7 @@
 package com.example.mobile.DTOs
 
+import java.io.Serializable
+
 data class UserToBeStoredDTO(
     public val id: String,
     public val username: String,
@@ -10,4 +12,4 @@ data class UserToBeStoredDTO(
     public val photos: ArrayList<String>,
     public val about: String,
     public val location: String,
-)
+) : Serializable
