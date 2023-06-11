@@ -153,5 +153,15 @@ namespace Backend.Services.UserService
                 Token = token,
             };
         }
+
+        public void DeleteAll()
+        {
+            var users = _table.ToList();
+            foreach (var user in users)
+            {
+                _context.Remove(user);
+            }
+            _context.SaveChanges();
+        }
     }
 }

@@ -10,7 +10,6 @@ import com.example.mobile.DTOs.UserRegisterRequestDTO
 import com.example.mobile.DTOs.UserToBeStoredDTO
 import com.example.mobile.R
 import com.google.gson.Gson
-import androidx.appcompat.app.AppCompatActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

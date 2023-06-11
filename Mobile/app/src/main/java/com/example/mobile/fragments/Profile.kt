@@ -39,7 +39,6 @@ private const val PROPERTYLIST = "propertyList"
 private const val PHOTOS = "photos"
 
 class Profile : Fragment() {
-
     private var propertyList: MutableList<Pair<String, String>> = mutableListOf()
     private var photos : MutableList<String> = mutableListOf()
     private lateinit var photoAdapter: PhotoAdapter
@@ -119,14 +118,18 @@ class Profile : Fragment() {
                 photos = ArrayList(photos),
                 phone = userFromLocalStorage!!.phone
             )
-//            apiCall.modifyUserAsync(newUser){ result, error ->
-//                if(error != null){
-//                    Alerts.alert(requireActivity(), "Error", error.message.toString())
-//                    return@modifyUserAsync
-//                }
-//                LocalStorage.storeInLocalStorage(requireActivity(), "user", Gson().toJson(newUser))
-//                Alerts.alert(requireActivity(), "Success", "Profile updated successfully")
-//            } // TODO de decomentat cand se face login
+            apiCall.modifyUserAsync(newUser){ result, error ->
+                if(error != null){
+                    activity?.runOnUiThread {
+                        Alerts.alert(requireActivity(), "Error", error.message.toString())
+                    }
+                    return@modifyUserAsync
+                }
+                LocalStorage.storeInLocalStorage(requireActivity(), "user", Gson().toJson(newUser))
+                activity?.runOnUiThread {
+                    Alerts.alert(requireActivity(), "Success", "Profile updated successfully")
+                }
+            }
             println("Save button clicked")
         }
 

@@ -8,4 +8,14 @@
     <string name="o">TODO</string>
     <string name="save">Save</string>
     <string name="test">test</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="about">About</string>
+    <string name="location">Location</string>
+    <string name="register">Register</string>
+    <string name="already_have_an_account_login">Already have an account?</string>
 </resources>

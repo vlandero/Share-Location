@@ -168,5 +168,21 @@ namespace Backend.Controllers
             }
         }
 
+        //delete all users
+        [HttpDelete("delete-all")]
+        public IActionResult DeleteAll()
+        {
+            try
+            {
+                _userService.DeleteAll();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return _getException(ex);
+            }
+        }
+
+
     }
 }

@@ -20,5 +20,7 @@ namespace Backend.Services.UserService
         void Reject(Guid userId1, Guid userId2);
         void DeleteRejection(Guid userId1, Guid userId2);
         UserLoginResponseDTO Login(UserLoginRequestDTO user);
+        void DeleteAll();
+
     }
 }
