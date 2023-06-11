@@ -13,9 +13,6 @@ import com.example.mobile.DTOs.UserRegisterRequestDTO
 import com.example.mobile.DTOs.UserToBeStoredDTO
 import com.example.mobile.api.Auth
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class RegisterActivity: AppCompatActivity() {
     private lateinit var usernameRegister: EditText
