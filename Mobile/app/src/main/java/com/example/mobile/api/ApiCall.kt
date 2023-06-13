@@ -49,6 +49,7 @@ class ApiCall {
                 callback(null, Exception(responseBody ?: "Unknown Error"))
             }
         } catch (e: Exception) {
+            println("Exception during getApiCall: $e") // Logging the error with its stack trace
             callback(null, e)
         }
     }
@@ -120,7 +121,24 @@ class ApiCall {
             }
         }
     }
-
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getConnectedUsersAsync(id: String, callback: (String?, Exception?) -> Unit) {
+        val url = mainUrl + "Users/connected-users/" + id
+        GlobalScope.launch {
+            try {
+                getApiCall(url) { result, e ->
+                    if (e != null) {
+                        callback(null, Exception("Error in getApiCall: ${e.message}", e)) // Add more detail to the exception
+                    }
+                    else {
+                        callback(result, null)
+                    }
+                }
+            } catch (e: Exception) {
+                callback(null, Exception("Exception caught in getConnectedUsersAsync: ${e.message}", e)) // Add more detail to the exception
+            }
+        }
+    }
     @OptIn(DelicateCoroutinesApi::class)
     fun getUserByIdAsync(id: String, callback: (String?, Exception?) -> Unit) {
         val url = mainUrl + "Users/get-by-id/" + id
