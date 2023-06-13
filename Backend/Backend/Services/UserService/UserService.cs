@@ -77,17 +77,25 @@ namespace Backend.Services.UserService
             }
             return usersDTO;
         }
-        public List<Connected> GetConnected(Guid guid)
+        public List<Connected> GetConnected(Guid userId)
         {
-            var user = GetById(guid) ?? throw new Exception("Invalid user id");
-            var connected = _context.Connecteds.Where(a => a.Id1 == user.Id || a.Id2 == user.Id).ToList();
-            return connected;
+            var user = GetById(userId) ?? throw new Exception("Invalid user id");
+            var connectedUsers = _context.Connecteds
+                .Include(c => c.User1)
+                .Include(c => c.User2)
+                .Where(a => a.Id1 == user.Id || a.Id2 == user.Id)
+                .ToList();
+            return connectedUsers;
         }
         public List<Rejected> GetRejected(Guid guid)
         {
             var user = GetById(guid) ?? throw new Exception("Invalid user id");
-            var rejected = _context.Rejecteds.Where(a => a.Id1 == user.Id || a.Id2 == user.Id).ToList();
-            return rejected;
+            var rejectedUsers = _context.Rejecteds
+                .Include(c => c.User1)
+                .Include(c => c.User2)
+                .Where(a => a.Id1 == user.Id || a.Id2 == user.Id)
+                .ToList();
+            return rejectedUsers;
         }
         public List<UserToBeStoredDTO> GetUsersForFeed(Guid userId)
         {
