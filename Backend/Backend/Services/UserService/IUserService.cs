@@ -18,8 +18,8 @@ namespace Backend.Services.UserService
         List<UserToBeStoredDTO> GetAllUsers();
         List<UserToBeStoredDTO> GetUsersForFeed(Guid userId);
         void Connect(Guid userId1, Guid userId2);
-        List<Connected> GetConnected(Guid guid);
-        List<Rejected> GetRejected(Guid guid);
+        List<UserToBeStoredDTO> GetConnected(Guid guid);
+        List<UserToBeStoredDTO> GetRejected(Guid guid);
         void DeleteConnection(Guid userId1, Guid userId2);
         void Reject(Guid userId1, Guid userId2);
         void DeleteRejection(Guid userId1, Guid userId2);
