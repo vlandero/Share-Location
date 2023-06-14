@@ -13,9 +13,13 @@ class UserAdapter(private val userList: List<UserToBeStoredDTO>, private val onC
 
     inner class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameTextView: TextView = view.findViewById(R.id.usernameTextView)
+        val phoneTextView: TextView= view.findViewById(R.id.phoneTextView)
 
+
+        //-------------------------------------
         fun bind(user: UserToBeStoredDTO) {
             nameTextView.text = user.username
+            phoneTextView.text = user.phone
             itemView.setOnClickListener { onClick(user) }
         }
     }

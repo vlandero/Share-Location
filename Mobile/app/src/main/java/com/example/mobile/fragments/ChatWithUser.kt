@@ -27,6 +27,7 @@ class ChatWithUser : Fragment() {
 
     companion object {
         private const val ARG_USER = "user"
+
         @JvmStatic
         fun newInstance(user: UserToBeStoredDTO) =
             ChatWithUser().apply {
