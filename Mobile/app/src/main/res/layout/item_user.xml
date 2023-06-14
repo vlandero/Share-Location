@@ -10,8 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="@color/black"
-        />
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/phoneTextView"
@@ -22,7 +21,14 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_weight="1"
-        android:gravity="end"
-        />
+        android:gravity="end" />
 
+    <Button
+        android:id="@+id/callButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Call"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/black" />
 </LinearLayout>
