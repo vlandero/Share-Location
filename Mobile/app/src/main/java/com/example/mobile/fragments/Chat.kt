@@ -18,14 +18,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+private const val ARG_USER = "ARG_USER"
+
 class Chat : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-
+    private var paramUser: UserToBeStoredDTO? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {}
+        arguments?.let {
+            paramUser = it.getSerializable(ARG_USER) as UserToBeStoredDTO
+        }
     }
 
     override fun onCreateView(
@@ -38,20 +42,11 @@ class Chat : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var userFromLocalStorage: UserToBeStoredDTO? = null
-        val userFromLocalStorageString: String? = LocalStorage.getFromLocalStorage(requireActivity(), "user")
-        if(userFromLocalStorageString != null) {
-            userFromLocalStorage = Gson().fromJson(userFromLocalStorageString, UserToBeStoredDTO::class.java)
-            println("Right now logged in as: $userFromLocalStorage")
-        } else {
-            Alerts.alert(requireActivity(), "Error", "Internal error")
-            println("Internal error")
-            return
-        }
+        var userFromLocalStorage = paramUser
 
         val apiCall = ApiCall()
         GlobalScope.launch(Dispatchers.IO) {
-            apiCall.getConnectedUsersAsync(userFromLocalStorage.id) { result, e ->
+            apiCall.getConnectedUsersAsync(userFromLocalStorage!!.id) { result, e ->
                 GlobalScope.launch(Dispatchers.Main) {
                     if (e != null) {
                         println("Full exception details: $e")
@@ -81,9 +76,11 @@ class Chat : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
+        fun newInstance(user: UserToBeStoredDTO) =
             Chat().apply {
-                arguments = Bundle().apply {}
+                arguments = Bundle().apply {
+                    putSerializable(ARG_USER, user)
+                }
             }
     }
 }

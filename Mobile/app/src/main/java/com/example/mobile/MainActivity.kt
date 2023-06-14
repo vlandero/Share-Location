@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                             pictures
                         )
                     )
-                    R.id.chat_button -> replaceFragment(Chat())
+                    R.id.chat_button -> replaceFragment(Chat.newInstance(user))
 
                     else -> {
 
