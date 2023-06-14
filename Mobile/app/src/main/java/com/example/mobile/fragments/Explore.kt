@@ -42,7 +42,7 @@ class Explore : Fragment(), CardStackListener {
             setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
             setOverlayInterpolator { it }
         }
-        val layoutManager = CardStackLayoutManager(context, this).apply {
+        layoutManager = CardStackLayoutManager(context, this).apply {
             setDirections(Direction.FREEDOM)
             setSwipeThreshold(0.3f)
             setVisibleCount(3)

@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             binding.bottomNavigationViewLoggedIn.visibility = View.VISIBLE
             binding.bottomNavigationViewLoggedIn.setOnItemSelectedListener {
                 when (it.itemId) {
-                    R.id.explore_button -> replaceFragment(Explore())
+                    R.id.explore_button -> replaceFragment(Explore.newInstance(user))
                     R.id.profile_button -> replaceFragment(
                         Profile.newInstance(
                             profilePairs,
