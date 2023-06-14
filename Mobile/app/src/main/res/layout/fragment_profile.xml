@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingBottom="56dp"
     android:background="@color/white"
     tools:context=".fragments.Profile">
 
@@ -31,10 +33,9 @@
 
         <ImageView
             android:id="@+id/add_picture"
-            android:layout_width="71dp"
-            android:layout_height="62dp"
-            android:src="@drawable/baseline_add_a_photo_24"
-            android:layout_gravity="end" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_add_a_photo_24" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -61,7 +62,7 @@
 
         <Button
             android:id="@+id/savebutton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/save"
             android:textColor="@android:color/white"
@@ -71,7 +72,7 @@
 
         <Button
             android:id="@+id/logoutbutton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Logout"
             android:textColor="@android:color/white"
