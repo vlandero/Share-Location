@@ -264,8 +264,10 @@ class ApiCall {
                 val json = Gson().toJson(dto)
                 deleteApiCall(json, url) { result, e ->
                     if (e != null) {
+                        println("Error deleting connection: ${e}")
                         callback(null, Exception("Error deleting connection"))
                     } else {
+                        println("Connection deleted successfully")
                         callback(result, null)
                     }
                 }

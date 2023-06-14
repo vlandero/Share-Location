@@ -59,10 +59,11 @@ class Chat : Fragment() {
                         println("Internal error: $e")
                     } else {
                         val connectedUsers = Gson().fromJson(result, Array<UserToBeStoredDTO>::class.java).toList()
+                        //
                         println("Users connected with: $connectedUsers")
 
                         viewManager = LinearLayoutManager(context)
-                        viewAdapter = UserAdapter(connectedUsers) { selectedUser ->
+                        viewAdapter = UserAdapter(connectedUsers as MutableList<UserToBeStoredDTO>) { selectedUser ->
                             val chatWithUserFragment = ChatWithUser.newInstance(selectedUser)
                             fragmentManager?.beginTransaction()?.replace(R.id.frame_layout, chatWithUserFragment)?.commit()
                         }
