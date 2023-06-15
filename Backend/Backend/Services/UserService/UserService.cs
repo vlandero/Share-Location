@@ -109,7 +109,7 @@ namespace Backend.Services.UserService
             var rejectedUsers = _context.Rejecteds
                 .Include(c => c.User1)
                 .Include(c => c.User2)
-                .Where(a => a.Id1 == user.Id)
+                .Where(a => a.Id1 == user.Id || a.Id2 == user.Id)
                 .ToList();
             var rejectedUserIds = rejectedUsers.Select(c => c.Id1 == userId ? c.Id2 : c.Id1);
             var rejectedUsersList = _context.Users
