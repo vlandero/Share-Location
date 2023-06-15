@@ -25,8 +25,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/not_logged_in_bottom_nav_menu"
-        />
+        app:itemIconTint="@color/golden"
+        app:itemTextColor="@color/golden"
+        app:itemTextAppearanceActive="@style/BottomNavigationTextAppearance"
+        app:itemTextAppearanceInactive="@style/BottomNavigationTextAppearance"
+        app:menu="@menu/not_logged_in_bottom_nav_menu" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationViewLoggedIn"
@@ -35,7 +38,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/logged_in_bottom_nav_menu"
-        />
+        app:itemIconTint="@color/golden"
+        app:itemTextColor="@color/golden"
+        app:itemTextAppearanceActive="@style/BottomNavigationTextAppearance"
+        app:itemTextAppearanceInactive="@style/BottomNavigationTextAppearance"
+        app:menu="@menu/logged_in_bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

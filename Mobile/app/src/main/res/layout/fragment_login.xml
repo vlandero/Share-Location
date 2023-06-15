@@ -15,6 +15,7 @@
         android:textSize="26sp"
         android:textColor="@android:color/black"
         android:textStyle="bold"
+        android:fontFamily="@font/acme"
         android:layout_marginBottom="16dp" />
 
     <EditText
@@ -38,8 +39,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
-        android:textColor="@android:color/white"
-        android:background="@android:color/holo_green_dark"
+        android:textColor="@color/black"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/acme"
         android:layout_marginTop="16dp" />
 
 </LinearLayout>
