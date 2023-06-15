@@ -11,11 +11,13 @@
         android:layout_width="301dp"
         android:layout_height="wrap_content"
         android:minHeight="70dp"
+        android:paddingStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/editimage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.533">
+        app:layout_constraintVertical_bias="0.533"
+        tools:ignore="RtlSymmetry">
 
         <EditText
             android:id="@+id/editpropvalue"
@@ -35,6 +37,7 @@
             android:maxLines="10"
             android:text="@string/property"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
 
