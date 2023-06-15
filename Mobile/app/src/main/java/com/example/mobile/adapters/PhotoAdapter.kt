@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mobile.R
 
-class PhotoAdapter(private val photos: MutableList<String>, private val deleteCallback: (Int) -> Unit): RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
+class PhotoAdapter(private val photos: MutableList<String>, private val deleteCallback: (Int) -> Unit, private val deleteButton: ImageView): RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
     @SuppressLint("NotifyDataSetChanged")
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View, deleteButton: ImageView) : RecyclerView.ViewHolder(view) {
         var pic: ImageView = itemView.findViewById(R.id.photoImageView)
-        var delete: ImageView = itemView.findViewById(R.id.deletephoto)
+        var delete: ImageView = deleteButton
         init {
             itemView.setOnClickListener {
                 println("PhotoAdapter.ViewHolder.onClick")
@@ -31,7 +31,7 @@ class PhotoAdapter(private val photos: MutableList<String>, private val deleteCa
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fragment_photo_item, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, deleteButton)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

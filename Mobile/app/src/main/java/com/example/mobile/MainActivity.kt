@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+            binding.bottomNavigationViewLoggedIn.selectedItemId = R.id.explore_button
         }
     }
     private fun getProfilePairs(user: UserToBeStoredDTO) : MutableList<Pair<String, String>>{
