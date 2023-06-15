@@ -1,74 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:padding="16dp">
-
+    android:background="?attr/colorOnPrimary"
+    android:gravity="center"
+    android:padding="16dp"
+    android:orientation="vertical">
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-        <TextView
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register"
-            android:textSize="26sp"
-            android:fontFamily="@font/acme"
-            android:textColor="@android:color/black"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="App Icon"
+            android:paddingEnd="8dp" />
+
+        <TextView
+            android:id="@+id/tvShareLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Share Location"
+            android:textSize="34sp"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
+            android:fontFamily="@font/varela" />
 
-        <EditText
-            android:id="@+id/usernameRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
-            android:textColorHint="@android:color/darker_gray"
-            android:inputType="text" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textSize="26sp"
+        android:fontFamily="@font/varela"
+        android:textColor="?attr/colorPrimaryVariant"
+        android:layout_marginBottom="16dp" />
 
-        <EditText
-            android:id="@+id/passwordRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:textColorHint="@android:color/darker_gray"
-            android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/usernameRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:fontFamily="@font/varela"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="text" />
 
-        <EditText
-            android:id="@+id/confirmPasswordRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Confirm Password"
-            android:textColorHint="@android:color/darker_gray"
-            android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/passwordRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:fontFamily="@font/varela"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/emailRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:textColorHint="@android:color/darker_gray"
-            android:inputType="textEmailAddress" />
+    <EditText
+        android:id="@+id/confirmPasswordRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirm Password"
+        android:fontFamily="@font/varela"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/nameRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name"
-            android:textColorHint="@android:color/darker_gray"
-            android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/emailRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:fontFamily="@font/varela"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/phoneRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone"
-            android:textColorHint="@android:color/darker_gray"
-            android:inputType="phone" />
+    <EditText
+        android:id="@+id/nameRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:fontFamily="@font/varela"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/phoneRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone"
+        android:fontFamily="@font/varela"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="phone" />
 
 <!--        <LinearLayout-->
 <!--            android:id="@+id/photosRegister"-->
@@ -92,35 +117,33 @@
 
 <!--        </LinearLayout>-->
 
-        <EditText
-            android:id="@+id/aboutRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="About"
-            android:textColorHint="@android:color/darker_gray"
-            android:inputType="textMultiLine"
-            android:maxLines="3" />
+    <EditText
+        android:id="@+id/aboutRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="About"
+        android:fontFamily="@font/varela"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="textMultiLine"
+        android:maxLines="3" />
 
-        <EditText
-            android:id="@+id/locationRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Location"
-            android:textColorHint="@android:color/darker_gray"
-            android:inputType="text" />
+    <EditText
+        android:id="@+id/locationRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location"
+        android:fontFamily="@font/varela"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="text" />
 
-        <Button
-            android:id="@+id/registerButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Register"
-            android:textColor="@color/black"
-            android:fontFamily="@font/acme"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/custom_button"
-            android:elevation="4dp"
-            android:stateListAnimator="@null" />
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textColor="?attr/colorPrimaryVariant"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/varela"
+        android:layout_marginTop="16dp"/>
 
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>
