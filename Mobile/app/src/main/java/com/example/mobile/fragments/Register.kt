@@ -27,7 +27,7 @@ class Register : Fragment()  {
     private lateinit var phoneRegister: EditText
     private lateinit var photosRegister: LinearLayout
     private lateinit var aboutRegister: EditText
-    private lateinit var locationRegister: EditText
+    private lateinit var locationRegister: AutoCompleteTextView
     private lateinit var registerButton: Button
     //-------------upload image------------------
     private lateinit var image_view: ImageView
@@ -61,6 +61,18 @@ class Register : Fragment()  {
 //        image_view = view.findViewById(R.id.image_view)
 //        button_upload = view.findViewById(R.id.button_upload)
 
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.locations_array,
+            android.R.layout.simple_dropdown_item_1line
+        ).also { adapter ->
+            locationRegister.setAdapter(adapter)
+        }
+        locationRegister.keyListener = null
+        locationRegister.setOnClickListener {
+            locationRegister.showDropDown()
+        }
+        locationRegister.dropDownHeight = ViewGroup.LayoutParams.WRAP_CONTENT
         registerButton.setOnClickListener {
             val username = usernameRegister.text.toString()
             val password = passwordRegister.text.toString()
