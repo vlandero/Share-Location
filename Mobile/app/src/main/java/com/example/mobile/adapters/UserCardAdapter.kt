@@ -33,6 +33,7 @@ class UserCardAdapter(
         val tvUsername: TextView = view.findViewById(R.id.tvUsername)
         val tvLocation: TextView = view.findViewById(R.id.tvLocation)
         val tvAbout: TextView = view.findViewById(R.id.tvAbout)
+        val tvAge: TextView = view.findViewById(R.id.tvAge)
         val cardImage: ImageView = view.findViewById(R.id.card_image)
         val cardContent: FrameLayout = view.findViewById(R.id.card_content)
     }
@@ -48,6 +49,7 @@ class UserCardAdapter(
         holder.tvUsername.text = users[position].username
         holder.tvLocation.text = users[position].location
         holder.tvAbout.text = users[position].about
+        holder.tvAge.text = users[position].age
         holder.tvAbout.setOnTouchListener(OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
             v.parent.requestDisallowInterceptTouchEvent(true)
             false

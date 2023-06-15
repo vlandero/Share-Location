@@ -61,16 +61,33 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:fontFamily="@font/varela"
-                android:textSize="26sp" />
+                android:textSize="22sp" />
 
             <TextView
-                android:id="@+id/comma"
+                android:id="@+id/comma1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=", "
                 android:fontFamily="@font/varela"
                 android:textColor="@android:color/white"
-                android:textSize="26sp" />
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tvAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/varela"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/comma2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=", "
+                android:fontFamily="@font/varela"
+                android:textColor="@android:color/white"
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/tvLocation"
@@ -78,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:fontFamily="@font/varela"
-                android:textSize="26sp" />
+                android:textSize="22sp" />
 
         </LinearLayout>
 
