@@ -29,6 +29,7 @@ class Register : Fragment()  {
     private lateinit var phoneRegister: EditText
     private lateinit var photosRegister: LinearLayout
     private lateinit var aboutRegister: EditText
+    private lateinit var ageRegister: EditText
     private lateinit var locationRegister: AutoCompleteTextView
     private lateinit var registerButton: Button
 
@@ -53,6 +54,7 @@ class Register : Fragment()  {
         nameRegister = view.findViewById(R.id.nameRegister)
         phoneRegister = view.findViewById(R.id.phoneRegister)
         aboutRegister = view.findViewById(R.id.aboutRegister)
+        ageRegister = view.findViewById(R.id.ageRegister)
         locationRegister = view.findViewById(R.id.locationRegister)
         registerButton = view.findViewById(R.id.registerButton)
 
@@ -131,6 +133,7 @@ class Register : Fragment()  {
             val name = nameRegister.text.toString()
             val phone = phoneRegister.text.toString()
             val about = aboutRegister.text.toString()
+            val age = ageRegister.text.toString()
             val location = locationRegister.text.toString()
             //-----------------validation------------------
             if (username.isEmpty()) {
@@ -178,6 +181,11 @@ class Register : Fragment()  {
                 aboutRegister.requestFocus()
                 return@setOnClickListener
             }
+            if (age.isEmpty()) {
+                ageRegister.error = "Age required"
+                ageRegister.requestFocus()
+                return@setOnClickListener
+            }
             if (location.isEmpty()) {
                 locationRegister.error = "Location required"
                 locationRegister.requestFocus()
@@ -196,7 +204,7 @@ class Register : Fragment()  {
             val newUserDto = UserRegisterRequestDTO(
                 username,
                 password,
-                confirmPassword,
+                age,
                 email,
                 name,
                 phone,
