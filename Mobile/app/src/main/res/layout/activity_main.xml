@@ -26,8 +26,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:itemIconTint="@color/golden"
-        app:itemTextColor="@color/golden"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
         app:itemTextAppearanceActive="@style/BottomNavigationTextAppearance"
         app:itemTextAppearanceInactive="@style/BottomNavigationTextAppearance"
         app:menu="@menu/not_logged_in_bottom_nav_menu" />
@@ -39,8 +39,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:itemIconTint="@color/golden"
-        app:itemTextColor="@color/golden"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
         app:itemTextAppearanceActive="@style/BottomNavigationTextAppearance"
         app:itemTextAppearanceInactive="@style/BottomNavigationTextAppearance"
         app:menu="@menu/logged_in_bottom_nav_menu" />
