@@ -6,17 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile.DTOs.UserToBeStoredDTO
 import com.example.mobile.R
 import com.example.mobile.adapters.UserAdapter
 import com.example.mobile.helpers.Alerts
-import com.example.mobile.helpers.LocalStorage
 import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 private const val ARG_USER = "ARG_USER"
 
@@ -43,8 +41,8 @@ class Chat : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var userFromLocalStorage = paramUser
-
         val apiCall = ApiCall()
+        val mutuallyConnectedUsers = mutableListOf<UserToBeStoredDTO>()
         GlobalScope.launch(Dispatchers.IO) {
             apiCall.getConnectedUsersAsync(userFromLocalStorage!!.id) { result, e ->
                 GlobalScope.launch(Dispatchers.Main) {
@@ -54,22 +52,37 @@ class Chat : Fragment() {
                         println("Internal error: $e")
                     } else {
                         val connectedUsers = Gson().fromJson(result, Array<UserToBeStoredDTO>::class.java).toList()
-                        //
+                        println("Users the logged in user (${userFromLocalStorage.id}) is connected with: $connectedUsers")
+
                         if (connectedUsers.isEmpty()) {
                             Alerts.alert(requireActivity(), "Info", "You have no connections yet")
-                        }else {
-                            println("Users connected with: $connectedUsers")
+                        } else {
+                            connectedUsers.forEach { user ->
+                                apiCall.getConnectedUsersAsync(user.id) { result2, e2 ->
+                                    if (e2 != null) {
+                                        println("Full exception details: $e2")
+                                    } else {
+                                        val connectedUsersOfUser = Gson().fromJson(result2, Array<UserToBeStoredDTO>::class.java).toList()
+                                        println("Users connected with ${user.id}: $connectedUsersOfUser")
+                                        if (connectedUsersOfUser.any { it.id == userFromLocalStorage.id }) {
+                                            println("User ${user.id} is connected with ${userFromLocalStorage.id}")
+                                            mutuallyConnectedUsers.add(user)
+                                        }
+                                        println("Mutual connection with: $mutuallyConnectedUsers")
+                                        GlobalScope.launch(Dispatchers.Main) {
+                                            viewManager = LinearLayoutManager(context)
+                                            viewAdapter = UserAdapter(mutuallyConnectedUsers) {}
 
-                            viewManager = LinearLayoutManager(context)
-                            viewAdapter =
-                                UserAdapter(connectedUsers as MutableList<UserToBeStoredDTO>) {}
-
-                            recyclerView =
-                                view.findViewById<RecyclerView>(R.id.recyclerView).apply {
-                                    setHasFixedSize(true)
-                                    layoutManager = viewManager
-                                    adapter = viewAdapter
+                                            recyclerView =
+                                                view.findViewById<RecyclerView>(R.id.recyclerView).apply {
+                                                    setHasFixedSize(true)
+                                                    layoutManager = viewManager
+                                                    adapter = viewAdapter
+                                                }
+                                        }
+                                    }
                                 }
+                            }
                         }
                     }
                 }
