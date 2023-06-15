@@ -17,6 +17,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.example.mobile.api.Auth
 import com.example.mobile.databinding.ActivityMainBinding
+import com.example.mobile.helpers.Alerts
 
 class Login : Fragment() {
     private lateinit var etUsername: EditText
@@ -47,7 +48,7 @@ class Login : Fragment() {
             val apiCall = ApiCall()
             apiCall.loginUserAsync(dto) { result, exception ->
                 if (exception != null) {
-                    println("Login error: $exception")
+                    Alerts.alert(requireActivity(), "Login error", "Failed to login")
                     // Handle login error
                 } else {
                     val gson = Gson()

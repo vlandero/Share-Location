@@ -27,7 +27,6 @@ import com.example.mobile.R
 import com.example.mobile.adapters.PhotoAdapter
 import com.example.mobile.adapters.ProfilePropertyAdapter
 import com.example.mobile.helpers.Alerts
-import com.example.mobile.helpers.Images
 import com.example.mobile.MainActivity
 import com.example.mobile.helpers.LocalStorage
 import com.google.gson.Gson
@@ -67,6 +66,7 @@ class Profile : Fragment() {
 
         startActivityForResult(chooserIntent, GALLERY_REQUEST_CODE)
     }
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -81,10 +81,13 @@ class Profile : Fragment() {
         }
 
         val deletePhotoButton = view.findViewById<ImageView>(R.id.deletephoto)
+        // Set an onClickListener to handle delete photo
         photoAdapter = PhotoAdapter(photos, { index ->
             println("Index: $index")
-            photos.removeAt(index)
-            photoAdapter.notifyDataSetChanged()
+            if(index >= 0){
+                photos.removeAt(index)
+                photoAdapter.notifyDataSetChanged()
+            }
         }, deletePhotoButton)
 
         // Get reference to the RecyclerView from the layout
@@ -107,6 +110,7 @@ class Profile : Fragment() {
             }
 
             val apiCall = ApiCall()
+            // cream un nou user cu datele din local storage si cu datele din profile pentru save
             val newUser = UserToBeStoredDTO(
                 id = userFromLocalStorage!!.id,
                 username = propertyList[0].second,
@@ -133,6 +137,7 @@ class Profile : Fragment() {
             println("Save button clicked")
         }
 
+        // insiram toate proprietatile in recycler view cu ajutorul adapterului
         val adapter = ProfilePropertyAdapter(propertyList){
             propertyList = it;
         }
@@ -143,6 +148,7 @@ class Profile : Fragment() {
         viewPager2.adapter = photoAdapter
         viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
+        // butonul de add picture, care deschide galeria
         val addPhotoButton = view.findViewById<ImageView>(R.id.add_picture)
         addPhotoButton.setOnClickListener {
             println("Clicked add photo button")
@@ -150,6 +156,8 @@ class Profile : Fragment() {
 
         }
     }
+
+    // conversie pentru a lucra cu base64: in baza de date stocam base64
     private fun convertBitmapToBase64(bitmap: Bitmap): String {
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
@@ -181,6 +189,8 @@ class Profile : Fragment() {
             }
         }
     }
+
+    // permisiunea de a accesa camera. pentru galeriem, avem deja permisiunea in manifest prin READ_EXTERNAL_STORAGE
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

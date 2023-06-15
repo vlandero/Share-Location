@@ -31,9 +31,6 @@ class Register : Fragment()  {
     private lateinit var aboutRegister: EditText
     private lateinit var locationRegister: AutoCompleteTextView
     private lateinit var registerButton: Button
-    //-------------upload image------------------
-    private lateinit var image_view: ImageView
-    private lateinit var button_upload: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +52,11 @@ class Register : Fragment()  {
         emailRegister = view.findViewById(R.id.emailRegister)
         nameRegister = view.findViewById(R.id.nameRegister)
         phoneRegister = view.findViewById(R.id.phoneRegister)
-//        photosRegister = view.findViewById(R.id.photosRegister)
         aboutRegister = view.findViewById(R.id.aboutRegister)
         locationRegister = view.findViewById(R.id.locationRegister)
         registerButton = view.findViewById(R.id.registerButton)
-        //-------------upload image------------------
-//        image_view = view.findViewById(R.id.image_view)
-//        button_upload = view.findViewById(R.id.button_upload)
 
+        // cream un dropdown cu locatiile available
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.locations_array,
@@ -136,7 +130,6 @@ class Register : Fragment()  {
             val email = emailRegister.text.toString()
             val name = nameRegister.text.toString()
             val phone = phoneRegister.text.toString()
-            //val photos = photosRegister.text.toString()
             val about = aboutRegister.text.toString()
             val location = locationRegister.text.toString()
             //-----------------validation------------------
@@ -211,10 +204,12 @@ class Register : Fragment()  {
                 about,
                 location
             )
+            // inregistrare user
             apiCall.registerUserAsync(newUserDto) { result, error ->
                 if (result != null) {
                     val userToBeStored = gson.fromJson(result, UserToBeStoredDTO::class.java)
                     println(userToBeStored)
+                    // daca e ok inregisrearea, vom loga userul
                     val userLoginDto = UserLoginRequestDTO(username, password)
                     apiCall.loginUserAsync(userLoginDto) { result, exception ->
                         if (exception != null) {

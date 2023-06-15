@@ -94,12 +94,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
     fun replaceFragment(fragment: Fragment){
+        // inlocuim fragmentul curent cu un alt fragment
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout, fragment)
         fragmentTransaction.commit()
     }
     override fun onSaveInstanceState(outState: Bundle) {
+        // stergem bundle-ul ca sa nu se salveze fragmentele, sa nu mutam multe date intre fragmente
         super.onSaveInstanceState(outState)
         outState.clear()
     }

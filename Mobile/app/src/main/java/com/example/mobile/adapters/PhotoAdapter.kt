@@ -14,17 +14,16 @@ class PhotoAdapter(private val photos: MutableList<String>, private val deleteCa
     @SuppressLint("NotifyDataSetChanged")
     inner class ViewHolder(view: View, deleteButton: ImageView) : RecyclerView.ViewHolder(view) {
         var pic: ImageView = itemView.findViewById(R.id.photoImageView)
-        var delete: ImageView = deleteButton
         init {
             itemView.setOnClickListener {
                 println("PhotoAdapter.ViewHolder.onClick")
-                println(pic)
             }
-            delete.setOnClickListener {
+            deleteButton.setOnClickListener {
                 // add callback
+                print(adapterPosition)
                 deleteCallback(adapterPosition)
                 // notify dupa callback, altfel daca se sterge inainte de callback nu mai avem elementul
-                notifyDataSetChanged()
+//                notifyDataSetChanged()
             }
         }
     }
