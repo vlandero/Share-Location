@@ -42,6 +42,7 @@ class Chat : Fragment() {
 
         var userFromLocalStorage = paramUser
         val apiCall = ApiCall()
+        val mutuallyConnectedUsers = mutableListOf<UserToBeStoredDTO>()
         GlobalScope.launch(Dispatchers.IO) {
             apiCall.getConnectedUsersAsync(userFromLocalStorage!!.id) { result, e ->
                 GlobalScope.launch(Dispatchers.Main) {
@@ -51,13 +52,11 @@ class Chat : Fragment() {
                         println("Internal error: $e")
                     } else {
                         val connectedUsers = Gson().fromJson(result, Array<UserToBeStoredDTO>::class.java).toList()
-                        println("Users the logged in user is connected with: $connectedUsers")
+                        println("Users the logged in user (${userFromLocalStorage.id}) is connected with: $connectedUsers")
 
                         if (connectedUsers.isEmpty()) {
                             Alerts.alert(requireActivity(), "Info", "You have no connections yet")
                         } else {
-                            val mutuallyConnectedUsers = mutableListOf<UserToBeStoredDTO>()
-
                             connectedUsers.forEach { user ->
                                 apiCall.getConnectedUsersAsync(user.id) { result2, e2 ->
                                     if (e2 != null) {
@@ -66,23 +65,24 @@ class Chat : Fragment() {
                                         val connectedUsersOfUser = Gson().fromJson(result2, Array<UserToBeStoredDTO>::class.java).toList()
                                         println("Users connected with ${user.id}: $connectedUsersOfUser")
                                         if (connectedUsersOfUser.any { it.id == userFromLocalStorage.id }) {
+                                            println("User ${user.id} is connected with ${userFromLocalStorage.id}")
                                             mutuallyConnectedUsers.add(user)
+                                        }
+                                        println("Mutual connection with: $mutuallyConnectedUsers")
+                                        GlobalScope.launch(Dispatchers.Main) {
+                                            viewManager = LinearLayoutManager(context)
+                                            viewAdapter = UserAdapter(mutuallyConnectedUsers) {}
+
+                                            recyclerView =
+                                                view.findViewById<RecyclerView>(R.id.recyclerView).apply {
+                                                    setHasFixedSize(true)
+                                                    layoutManager = viewManager
+                                                    adapter = viewAdapter
+                                                }
                                         }
                                     }
                                 }
                             }
-
-                            println("Mutual connection with: $mutuallyConnectedUsers")
-
-                            viewManager = LinearLayoutManager(context)
-                            viewAdapter = UserAdapter(mutuallyConnectedUsers) {}
-
-                            recyclerView =
-                                view.findViewById<RecyclerView>(R.id.recyclerView).apply {
-                                    setHasFixedSize(true)
-                                    layoutManager = viewManager
-                                    adapter = viewAdapter
-                                }
                         }
                     }
                 }
