@@ -56,7 +56,6 @@ class Profile : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         println("Profile.onCreateView")
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
@@ -81,11 +80,12 @@ class Profile : Fragment() {
             }
         }
 
-
-        photoAdapter = PhotoAdapter(photos){index ->
+        val deletePhotoButton = view.findViewById<ImageView>(R.id.deletephoto)
+        photoAdapter = PhotoAdapter(photos, { index ->
             println("Index: $index")
             photos.removeAt(index)
-        }
+            photoAdapter.notifyDataSetChanged()
+        }, deletePhotoButton)
 
         // Get reference to the RecyclerView from the layout
         val recyclerView = view.findViewById<RecyclerView>(R.id.profileproperties)
