@@ -72,7 +72,6 @@
                 android:orientation="horizontal">
 
 
-
                 <Button
                     android:id="@+id/savebutton"
                     android:layout_width="match_parent"
