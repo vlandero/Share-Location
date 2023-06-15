@@ -68,8 +68,12 @@ class UserAdapter(private var userList: MutableList<UserToBeStoredDTO>, private 
                                     println("Full exception details: $e")
                                 } else {
                                     println("Connection deleted")
-                                    userList.remove(user)
-                                    notifyDataSetChanged()
+                                    if (userList.size > 0) {
+                                        userList.remove(user)
+                                        notifyDataSetChanged()
+                                    } else {
+                                        println("User list is empty")
+                                    }
                                 }
                             }
                         }

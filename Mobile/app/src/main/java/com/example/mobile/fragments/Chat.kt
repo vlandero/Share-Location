@@ -55,18 +55,21 @@ class Chat : Fragment() {
                     } else {
                         val connectedUsers = Gson().fromJson(result, Array<UserToBeStoredDTO>::class.java).toList()
                         //
-                        println("Users connected with: $connectedUsers")
+                        if (connectedUsers.isEmpty()) {
+                            Alerts.alert(requireActivity(), "Info", "You have no connections yet")
+                        }else {
+                            println("Users connected with: $connectedUsers")
 
-                        viewManager = LinearLayoutManager(context)
-                        viewAdapter = UserAdapter(connectedUsers as MutableList<UserToBeStoredDTO>) { selectedUser ->
-                            val chatWithUserFragment = ChatWithUser.newInstance(selectedUser)
-                            fragmentManager?.beginTransaction()?.replace(R.id.frame_layout, chatWithUserFragment)?.commit()
-                        }
+                            viewManager = LinearLayoutManager(context)
+                            viewAdapter =
+                                UserAdapter(connectedUsers as MutableList<UserToBeStoredDTO>) {}
 
-                        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView).apply {
-                            setHasFixedSize(true)
-                            layoutManager = viewManager
-                            adapter = viewAdapter
+                            recyclerView =
+                                view.findViewById<RecyclerView>(R.id.recyclerView).apply {
+                                    setHasFixedSize(true)
+                                    layoutManager = viewManager
+                                    adapter = viewAdapter
+                                }
                         }
                     }
                 }
