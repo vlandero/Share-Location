@@ -2,6 +2,8 @@ package com.example.mobile.fragments
 
 import ApiCall
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -73,6 +75,60 @@ class Register : Fragment()  {
             locationRegister.showDropDown()
         }
         locationRegister.dropDownHeight = ViewGroup.LayoutParams.WRAP_CONTENT
+
+        confirmPasswordRegister.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val password = passwordRegister.text.toString().trim()
+                val confirmPassword = s.toString().trim()
+                if (confirmPassword.isNotEmpty() && password != confirmPassword) {
+                    confirmPasswordRegister.error = "Password and Confirm Password must match"
+                } else {
+                    confirmPasswordRegister.error = null
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        emailRegister.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val email = s.toString().trim()
+                if (email.isNotEmpty() && !isEmailValid(email)) {
+                    emailRegister.error = "Invalid email address"
+                } else {
+                    emailRegister.error = null
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
+        // Live validation for phone field
+        phoneRegister.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val phone = s.toString().trim()
+                if (phone.isNotEmpty() && !isPhoneValid(phone)) {
+                    phoneRegister.error = "Invalid phone number"
+                } else {
+                    phoneRegister.error = null
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
         registerButton.setOnClickListener {
             val username = usernameRegister.text.toString()
             val password = passwordRegister.text.toString()
@@ -104,6 +160,11 @@ class Register : Fragment()  {
                 emailRegister.requestFocus()
                 return@setOnClickListener
             }
+            if (!isEmailValid(email)) {
+                emailRegister.error = "Invalid email address"
+                emailRegister.requestFocus()
+                return@setOnClickListener
+            }
             if (name.isEmpty()) {
                 nameRegister.error = "Name required"
                 nameRegister.requestFocus()
@@ -111,6 +172,11 @@ class Register : Fragment()  {
             }
             if (phone.isEmpty()) {
                 phoneRegister.error = "Phone required"
+                phoneRegister.requestFocus()
+                return@setOnClickListener
+            }
+            if (!isPhoneValid(phone)) {
+                phoneRegister.error = "Invalid phone number"
                 phoneRegister.requestFocus()
                 return@setOnClickListener
             }
@@ -201,6 +267,15 @@ class Register : Fragment()  {
                 }
             }
         }
+    }
+    private fun isEmailValid(email: String): Boolean {
+        val pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        return email.matches(pattern.toRegex())
+    }
+
+    private fun isPhoneValid(phone: String): Boolean {
+        val pattern = "^[0-9]{10}$"
+        return phone.matches(pattern.toRegex())
     }
     companion object {
         @JvmStatic
