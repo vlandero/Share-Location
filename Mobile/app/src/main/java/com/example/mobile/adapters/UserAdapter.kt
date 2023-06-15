@@ -58,11 +58,31 @@ class UserAdapter(private var userList: MutableList<UserToBeStoredDTO>, private 
                     return@setOnClickListener
                 }
                 val m_to_m= ManyToManyDTO(userFromLocalStorage.id, user.id)
+                val m_to_m2 = ManyToManyDTO(user.id, userFromLocalStorage.id)
                 if(userFromLocalStorageString != null) {
                     val userFromLocalStorage = Gson().fromJson(userFromLocalStorageString, UserToBeStoredDTO::class.java)
                     val apiCall = ApiCall()
+                    // stergem conexiunea
                     GlobalScope.launch(Dispatchers.IO) { // Switch to background thread for network request
                         apiCall.deleteConnectionAsync(m_to_m) { result, e ->
+                            GlobalScope.launch(Dispatchers.Main) {
+                                if (e != null) {
+                                    println("Full exception details: $e")
+                                } else {
+                                    println("Connection deleted")
+                                    if (userList.size > 0) {
+                                        userList.remove(user)
+                                        notifyDataSetChanged()
+                                    } else {
+                                        println("User list is empty")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // stergem si conexiunea inversa
+                    GlobalScope.launch(Dispatchers.IO) { // Switch to background thread for network request
+                        apiCall.deleteConnectionAsync(m_to_m2) { result, e ->
                             GlobalScope.launch(Dispatchers.Main) {
                                 if (e != null) {
                                     println("Full exception details: $e")

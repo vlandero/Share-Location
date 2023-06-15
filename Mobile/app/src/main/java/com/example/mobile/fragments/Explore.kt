@@ -84,6 +84,7 @@ class Explore : Fragment(), CardStackListener {
         val swipedUser = userArray[layoutManager.topPosition - 1]
 
         when (direction) {
+            // pentru right, se face connect
             Direction.Right -> {
                 val dto = ManyToManyDTO(paramUser!!.id, swipedUser.id)
                 ApiCall().connectAsync(dto) { result, exception ->
@@ -113,6 +114,7 @@ class Explore : Fragment(), CardStackListener {
                     }
                 }
             }
+            // pentru left, se face reject
             Direction.Left -> {
                 val dto = ManyToManyDTO(paramUser!!.id, swipedUser.id)
                 ApiCall().rejectAsync(dto) { result, exception ->
