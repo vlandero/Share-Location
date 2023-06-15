@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:paddingTop="16dp"
     android:paddingBottom="56dp"
-    android:background="@color/white"
+    android:background="?attr/colorOnPrimary"
     android:windowSoftInputMode="adjustPan"
     tools:context=".fragments.Profile">
 
@@ -30,9 +30,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:text="Profile"
-                    android:textColor="@android:color/black"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="26sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/varela" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/photoViewPager"
@@ -70,15 +71,19 @@
                 android:layout_marginBottom="16dp"
                 android:orientation="horizontal">
 
+
+
                 <Button
                     android:id="@+id/savebutton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:background="@android:color/holo_green_dark"
+                    android:background="@drawable/custom_button"
                     android:text="@string/save"
-                    android:textColor="@android:color/white" />
+                    android:fontFamily="@font/varela"
+                    android:textColor="@color/black"
+                    />
 
                 <Button
                     android:id="@+id/logoutbutton"
@@ -86,9 +91,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:background="@android:color/holo_red_dark"
+                    android:background="@drawable/custom_button"
+                    android:fontFamily="@font/varela"
                     android:text="Logout"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@color/black" />
 
             </LinearLayout>
         </LinearLayout>

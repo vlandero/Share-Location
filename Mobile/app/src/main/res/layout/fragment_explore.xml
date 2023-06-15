@@ -3,15 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Explore">
+    tools:context=".fragments.Explore"
+    android:background="?attr/colorOnPrimary">
+
+    <LinearLayout
+        android:id="@+id/top_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:paddingStart="8dp"
+        android:paddingTop="16dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="App Icon"
+            android:paddingEnd="8dp" />
+
+        <TextView
+            android:id="@+id/tvShareLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Share Location"
+            android:textSize="34sp"
+            android:gravity="center_horizontal"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textStyle="bold"
+            android:fontFamily="@font/varela" />
+
+    </LinearLayout>
 
     <com.yuyakaido.android.cardstackview.CardStackView
         android:id="@+id/card_stack_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="16dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="56dp" />
+        android:paddingBottom="56dp"
+        android:layout_below="@id/top_layout"/>
 
 </RelativeLayout>

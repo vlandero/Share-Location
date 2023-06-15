@@ -1,18 +1,25 @@
 package com.example.mobile.fragments
 
 import ApiCall
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile.DTOs.ManyToManyDTO
 import com.example.mobile.DTOs.UserToBeStoredDTO
 import com.example.mobile.R
+import com.example.mobile.adapters.UserAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.example.mobile.adapters.UserCardAdapter
 import com.yuyakaido.android.cardstackview.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.Serializable
 
 private const val ARG_USER = "ARG_USER"
@@ -82,6 +89,27 @@ class Explore : Fragment(), CardStackListener {
                 ApiCall().connectAsync(dto) { result, exception ->
                     if (exception != null) {
                         println("Error connecting users: ${exception.message}")
+                    } else{
+                        apiCall.getConnectedUsersAsync(swipedUser.id) { result2, e2 ->
+                            if (e2 != null) {
+                                println("Full exception details: $e2")
+                            } else {
+                                val connectedUsersOfUser = Gson().fromJson(result2, Array<UserToBeStoredDTO>::class.java).toList()
+                                println("Users connected with ${swipedUser.id}: $connectedUsersOfUser")
+                                if (connectedUsersOfUser.any { it.id == paramUser!!.id }) {
+                                    println("User ${swipedUser.id} is connected with ${paramUser!!.id}")
+                                    activity?.runOnUiThread {
+                                        AlertDialog.Builder(context)
+                                            .setTitle("It's a match!")
+                                            .setMessage("You and ${swipedUser.username} have connected!")
+                                            .setPositiveButton(android.R.string.ok) { dialog, which ->
+                                                dialog.dismiss()
+                                            }
+                                            .show()
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

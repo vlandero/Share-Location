@@ -23,11 +23,12 @@ class UserCardAdapter(
 ) : RecyclerView.Adapter<UserCardAdapter.ViewHolder>() {
 
     private val colors = arrayOf(
-        R.color.color1, R.color.color2, R.color.color3, // Add more colors
+        R.color.color1, R.color.color2, R.color.color3, R.color.color4, R.color.color5, R.color.color6, R.color.color7, R.color.color8, R.color.color9, R.color.color10, R.color.color11, R.color.color12, R.color.color13, R.color.color14, R.color.color15, R.color.color16, R.color.color17
     )
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvUsername: TextView = view.findViewById(R.id.tvUsername)
+        val tvLocation: TextView = view.findViewById(R.id.tvLocation)
         val cardImage: ImageView = view.findViewById(R.id.card_image)
         val cardContent: FrameLayout = view.findViewById(R.id.card_content)
     }
@@ -39,6 +40,7 @@ class UserCardAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvUsername.text = users[position].username
+        holder.tvLocation.text = users[position].location
         if(users[position].photos.isNotEmpty()) {
             val decodedImage = decodeImage(users[position].photos[0])
             holder.cardImage.setImageBitmap(decodedImage)

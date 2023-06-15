@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Username"
+        android:fontFamily="@font/varela"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
@@ -19,6 +20,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="16dp"
         android:text="Call"
+        android:fontFamily="@font/varela"
         android:textColor="@color/black" />
 
     <Button
@@ -27,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/callButton"
         android:text="Delete"
+        android:fontFamily="@font/varela"
         android:textColor="@color/black" />
 
     <TextView
@@ -34,7 +37,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/usernameTextView"
-        android:textSize="20sp"
+        android:textSize="16sp"
+        android:text="Phone Number"
+        android:fontFamily="@font/varela"
         android:textColor="@color/black"
         android:layout_marginTop="8dp" />
 

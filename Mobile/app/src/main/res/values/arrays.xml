@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="locations_array">
+        <item>Alba Iulia</item>
+        <item>Alexandria</item>
+        <item>Arad</item>
+        <item>Avrig</item>
+        <item>Azuga</item>
+        <item>Babadag</item>
+        <item>Băicoi</item>
+        <item>Băilești</item>
+        <item>Băile Tușnad</item>
+        <item>Baia de Aramă</item>
+        <item>Baia de Arieș</item>
+        <item>Baia Mare</item>
+        <item>Baia Sprie</item>
+        <item>Băicoi</item>
+        <item>Bârlad</item>
+        <item>Beclean</item>
+        <item>Beiuș</item>
+        <item>Berbești</item>
+        <item>Bicaz</item>
+        <item>Bistrița</item>
+        <item>Bistrița-Năsăud</item>
+        <item>Blaj</item>
+        <item>Bocșa</item>
+        <item>Boldești-Scăeni</item>
+        <item>Borșa</item>
+        <item>Botoșani</item>
+        <item>Brăila</item>
+        <item>Brad</item>
+        <item>Brașov</item>
+        <item>Breaza</item>
+        <item>Buftea</item>
+        <item>Buhuși</item>
+        <item>Buzești</item>
+        <item>Buziaș</item>
+        <item>Buzău</item>
+        <item>Călărași</item>
+        <item>Câmpeni</item>
+        <item>Câmpia Turzii</item>
+        <item>Câmpina</item>
+        <item>Câmpulung Moldovenesc</item>
+        <item>Câmpulung Muscel</item>
+        <item>Carei</item>
+        <item>Cavnic</item>
+        <item>Cehu Silvaniei</item>
+        <item>Chitila</item>
+        <item>Cluj-Napoca</item>
+        <item>Comănești</item>
+        <item>Constanța</item>
+        <item>Copșa Mică</item>
+        <item>Corabia</item>
+        <item>Cornetu</item>
+        <item>Covasna</item>
+        <item>Craiova</item>
+        <item>Cristuru Secuiesc</item>
+        <item>Cugir</item>
+        <item>Curtici</item>
+        <item>Dăbuleni</item>
+        <item>Dărmănești</item>
+        <item>Dej</item>
+        <item>Deva</item>
+        <item>Dorohoi</item>
+        <item>Drăgășani</item>
+        <item>Drobeta-Turnu Severin</item>
+        <item>Făgăraș</item>
+        <item>Fălticeni</item>
+        <item>Făurei</item>
+        <item>Fetești</item>
+        <item>Filiași</item>
+        <item>Focșani</item>
+        <item>Geoagiu</item>
+        <item>Gherla</item>
+        <item>Giurgiu</item>
+        <item>Gura Humorului</item>
+        <item>Gurahonț</item>
+        <item>Hârlău</item>
+        <item>Hateg</item>
+        <item>Hațeg</item>
+        <item>Horezu</item>
+        <item>Huedin</item>
+        <item>Hunedoara</item>
+        <item>Husi</item>
+        <item>Ianca</item>
+        <item>Iași</item>
+        <item>Iernut</item>
+        <item>Ilva Mică</item>
+        <item>Întorsura Buzăului</item>
+        <item>Isaccea</item>
+        <item>Jibou</item>
+        <item>Jimbolia</item>
+        <item>Lipova</item>
+        <item>Lehliu Gară</item>
+        <item>Luduș</item>
+        <item>Lugoj</item>
+        <item>Lupeni</item>
+        <item>Măcin</item>
+        <item>Măgurele</item>
+        <item>Mangalia</item>
+        <item>Mărășești</item>
+        <item>Mediaș</item>
+        <item>Miercurea Ciuc</item>
+        <item>Miercurea Nirajului</item>
+        <item>Miercurea Sibiului</item>
+        <item>Mihăilești</item>
+        <item>Mioveni</item>
+        <item>Mizil</item>
+        <item>Moinesti</item>
+        <item>Moreni</item>
+        <item>Moroeni</item>
+        <item>Murfatlar</item>
+        <item>Mutnica</item>
+        <item>Nădlac</item>
+        <item>Năsăud</item>
+        <item>Navodari</item>
+        <item>Neamțu</item>
+        <item>Neptun</item>
+        <item>Nicolaie Bălcescu</item>
+        <item>Odobești</item>
+        <item>Odorheiu Secuiesc</item>
+        <item>Oltenița</item>
+        <item>Onești</item>
+        <item>Oradea</item>
+        <item>Orăștie</item>
+        <item>Oravița</item>
+        <item>Orșova</item>
+        <item>Oțelu Roșu</item>
+        <item>Ovidiu</item>
+        <item>Panciu</item>
+        <item>Pătârlagele</item>
+        <item>Pecica</item>
+        <item>Petrila</item>
+        <item>Petroșani</item>
+        <item>Piatra Neamț</item>
+        <item>Pitești</item>
+        <item>Ploiești</item>
+        <item>Plopeni</item>
+        <item>Podu Iloaiei</item>
+        <item>Podu Turcului</item>
+        <item>Poiana Câmpina</item>
+        <item>Poiana Mărului</item>
+        <item>Popești-Leordeni</item>
+        <item>Predeal</item>
+        <item>Pucioasa</item>
+        <item>Râmnicu Sărat</item>
+        <item>Râmnicu Vâlcea</item>
+        <item>Râșnov</item>
+        <item>Reci</item>
+        <item>Reghin</item>
+        <item>Reșița</item>
+        <item>Rîmnicu Sărat</item>
+        <item>Rîmnicu Vîlcea</item>
+        <item>Roșiori de Vede</item>
+        <item>Rovinari</item>
+        <item>Roznov</item>
+        <item>Săcele</item>
+        <item>Săcueni</item>
+        <item>Săliște</item>
+        <item>Săliștea de Sus</item>
+        <item>Satu Mare</item>
+        <item>Sânnicolau Mare</item>
+        <item>Sângeorgiu de Pădure</item>
+        <item>Sântana</item>
+        <item>Săveni</item>
+        <item>Săvinești</item>
+        <item>Scornicești</item>
+        <item>Sebeș</item>
+        <item>Segarcea</item>
+        <item>Sfântu Gheorghe</item>
+        <item>Sibiu</item>
+        <item>Slănic</item>
+        <item>Slănic Moldova</item>
+        <item>Slatina</item>
+        <item>Slobozia</item>
+        <item>Snagov</item>
+        <item>Soci</item>
+        <item>Solca</item>
+        <item>Sovata</item>
+        <item>Strehaia</item>
+        <item>Suceava</item>
+        <item>Sulina</item>
+        <item>Șimleu Silvaniei</item>
+        <item>Șiria</item>
+        <item>Ștei</item>
+        <item>Șura Mică</item>
+        <item>Șura Mare</item>
+        <item>Târgoviște</item>
+        <item>Târgu Bujor</item>
+        <item>Târgu Cărbunești</item>
+        <item>Târgu Frumos</item>
+        <item>Târgu Jiu</item>
+        <item>Târgu Lăpuș</item>
+        <item>Târgu Mureș</item>
+        <item>Târgu Neamț</item>
+        <item>Târgu Ocna</item>
+        <item>Târgu Secuiesc</item>
+        <item>Târnăveni</item>
+        <item>Tecuci</item>
+        <item>Tismana</item>
+        <item>Titu</item>
+        <item>Toplița</item>
+        <item>Tulcea</item>
+        <item>Turda</item>
+        <item>Turnu Măgurele</item>
+        <item>Uricani</item>
+        <item>Urlați</item>
+        <item>Valea lui Mihai</item>
+        <item>Vânju Mare</item>
+        <item>Vaslui</item>
+        <item>Vatra Dornei</item>
+        <item>Vicovu de Sus</item>
+        <item>Videle</item>
+        <item>Viișoara</item>
+        <item>Vlăhița</item>
+        <item>Zalău</item>
+        <item>Zărnești</item>
+        <item>Zimnicea</item>
+        <item>Zlatna</item>
+        <item>Zimnicea</item>
+    </string-array>
+
+</resources>
