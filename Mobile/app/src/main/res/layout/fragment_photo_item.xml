@@ -11,6 +11,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         app:srcCompat="@android:mipmap/sym_def_app_icon"
+        android:background="@drawable/image_border"
         android:contentDescription="@string/test" />
 
     <ImageView
@@ -18,7 +19,6 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignTop="@+id/photoImageView"
-        android:layout_marginStart="-44dp"
         android:layout_toEndOf="@+id/photoImageView"
         app:srcCompat="@drawable/baseline_delete_24" />
 </RelativeLayout>
