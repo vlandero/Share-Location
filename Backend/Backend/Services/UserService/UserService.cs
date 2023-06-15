@@ -77,25 +77,65 @@ namespace Backend.Services.UserService
             }
             return usersDTO;
         }
-        public List<Connected> GetConnected(Guid guid)
+        public List<UserToBeStoredDTO> GetConnected(Guid userId)
         {
-            var user = GetById(guid) ?? throw new Exception("Invalid user id");
-            var connected = _context.Connecteds.Where(a => a.Id1 == user.Id || a.Id2 == user.Id).ToList();
-            return connected;
+            var user = GetById(userId) ?? throw new Exception("Invalid user id");
+            var connectedUsers = _context.Connecteds
+                .Include(c => c.User1)
+                .Include(c => c.User2)
+                .Where(a => a.Id1 == user.Id)
+                .ToList();
+            var connectedUserIds = connectedUsers.Select(c => c.Id1 == userId ? c.Id2 : c.Id1);
+            var connectedUsersList = _context.Users
+                .Where(u => connectedUserIds.Contains(u.Id))
+                .Select(u => new UserToBeStoredDTO
+                {
+                    Id = u.Id,
+                    Age = u.Age,
+                    Username = u.Username,
+                    Email = u.Email,
+                    Name = u.Name,
+                    Phone = u.Phone,
+                    Photos = u.Photos,
+                    About = u.About,
+                    Location = u.Location
+                })
+                .ToList();
+            return connectedUsersList;
         }
-        public List<Rejected> GetRejected(Guid guid)
+        public List<UserToBeStoredDTO> GetRejected(Guid userId)
         {
-            var user = GetById(guid) ?? throw new Exception("Invalid user id");
-            var rejected = _context.Rejecteds.Where(a => a.Id1 == user.Id || a.Id2 == user.Id).ToList();
-            return rejected;
+            var user = GetById(userId) ?? throw new Exception("Invalid user id");
+            var rejectedUsers = _context.Rejecteds
+                .Include(c => c.User1)
+                .Include(c => c.User2)
+                .Where(a => a.Id1 == user.Id)
+                .ToList();
+            var rejectedUserIds = rejectedUsers.Select(c => c.Id1 == userId ? c.Id2 : c.Id1);
+            var rejectedUsersList = _context.Users
+                .Where(u => rejectedUserIds.Contains(u.Id))
+                .Select(u => new UserToBeStoredDTO
+                {
+                    Id = u.Id,
+                    Age = u.Age,
+                    Username = u.Username,
+                    Email = u.Email,
+                    Name = u.Name,
+                    Phone = u.Phone,
+                    Photos = u.Photos,
+                    About = u.About,
+                    Location = u.Location
+                })
+                .ToList();
+            return rejectedUsersList;
         }
         public List<UserToBeStoredDTO> GetUsersForFeed(Guid userId)
         {
             var allUsers = GetAllUsers();
             var rejectedUsers = GetRejected(userId)
-                .ToDictionary(u => u.Id1 == userId ? u.Id2 : u.Id1);
+                .ToDictionary(u => u.Id);
             var connectedUsers = GetConnected(userId)
-                .ToDictionary(u => u.Id1 == userId ? u.Id2 : u.Id1);
+                .ToDictionary(u => u.Id);
             var users = allUsers.Where(u => u.Id != userId
                 && !rejectedUsers.ContainsKey(u.Id)
                 && !connectedUsers.ContainsKey(u.Id))

@@ -6,23 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.mobile.DTOs.ManyToManyDTO
 import com.example.mobile.DTOs.UserToBeStoredDTO
 import com.example.mobile.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.example.mobile.adapters.UserCardAdapter
+import com.yuyakaido.android.cardstackview.*
 import java.io.Serializable
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_USER = "ARG_USER"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Explore.newInstance] factory method to
- * create an instance of this fragment.
- */
-class Explore : Fragment() {
+class Explore : Fragment(), CardStackListener {
     private var paramUser: UserToBeStoredDTO? = null
+    private var userArray = ArrayList<UserToBeStoredDTO>()
+    private val apiCall = ApiCall()
+    private lateinit var layoutManager: CardStackLayoutManager
+    private lateinit var card_stack_view: CardStackView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -38,24 +37,78 @@ class Explore : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var userArray = ArrayList<UserToBeStoredDTO>()
-        val gson = Gson()
-        val usersType = object : TypeToken<List<UserToBeStoredDTO>>() {}.type
+        card_stack_view = view.findViewById(R.id.card_stack_view)
+        layoutManager = CardStackLayoutManager(context, this).apply {
+            setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
+            setOverlayInterpolator { it }
+        }
+        layoutManager = CardStackLayoutManager(context, this).apply {
+            setDirections(Direction.FREEDOM)
+            setSwipeThreshold(0.3f)
+            setVisibleCount(3)
+            setTranslationInterval(8.0f)
+            setScaleInterval(0.95f)
+        }
+        card_stack_view.layoutManager = layoutManager
+        card_stack_view.adapter = UserCardAdapter(requireContext(), userArray)
 
         paramUser?.username?.let { username ->
-            ApiCall().getFeedAsync(username) { result, error ->
+            apiCall.getFeedAsync(username) { result, error ->
                 if (error != null) {
                     println("Error: ${error.message}")
                 } else {
                     result?.let {
-                        userArray = gson.fromJson(it, usersType)
-                        println("User array: " + userArray)
+                        userArray = Gson().fromJson(it, object : TypeToken<List<UserToBeStoredDTO>>() {}.type)
+                        println("User array: $userArray")
+                        activity?.runOnUiThread {
+                            (card_stack_view.adapter as UserCardAdapter).updateData(userArray)
+                            println("Updated card stack view adapter: $userArray")
+                        }
                     }
                 }
             }
         }
     }
 
+    override fun onCardDragging(direction: Direction?, ratio: Float) {
+    }
+
+    override fun onCardSwiped(direction: Direction?) {
+        val swipedUser = userArray[layoutManager.topPosition - 1]
+
+        when (direction) {
+            Direction.Right -> {
+                val dto = ManyToManyDTO(paramUser!!.id, swipedUser.id)
+                ApiCall().connectAsync(dto) { result, exception ->
+                    if (exception != null) {
+                        println("Error connecting users: ${exception.message}")
+                    }
+                }
+            }
+            Direction.Left -> {
+                val dto = ManyToManyDTO(paramUser!!.id, swipedUser.id)
+                ApiCall().rejectAsync(dto) { result, exception ->
+                    if (exception != null) {
+                        println("Error rejecting users: ${exception.message}")
+                    }
+                }
+            }
+            else -> {
+            }
+        }
+    }
+
+    override fun onCardRewound() {
+    }
+
+    override fun onCardCanceled() {
+    }
+
+    override fun onCardAppeared(view: View?, position: Int) {
+    }
+
+    override fun onCardDisappeared(view: View?, position: Int) {
+    }
     companion object {
         @JvmStatic
         fun newInstance(user: UserToBeStoredDTO) =

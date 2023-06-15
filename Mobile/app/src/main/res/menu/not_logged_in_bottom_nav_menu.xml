@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:title="Home"
-        android:icon="@drawable/baseline_home_24"
-        android:id="@+id/home_button"/>
     <item android:title="Login"
         android:icon="@drawable/baseline_login_24"
         android:id="@+id/login_button"/>

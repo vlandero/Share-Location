@@ -56,6 +56,8 @@ class Profile : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
+        println("Profile.onCreateView")
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
     private fun openGallery() {
@@ -79,6 +81,7 @@ class Profile : Fragment() {
             }
         }
 
+
         photoAdapter = PhotoAdapter(photos){index ->
             println("Index: $index")
             photos.removeAt(index)
@@ -86,16 +89,16 @@ class Profile : Fragment() {
 
         // Get reference to the RecyclerView from the layout
         val recyclerView = view.findViewById<RecyclerView>(R.id.profileproperties)
-        val saveButton = view.findViewById<TextView>(R.id.savebutton)
+        val button = view.findViewById<TextView>(R.id.savebutton)
 
-        saveButton.setOnClickListener {
-            println("New properties of user: $propertyList")
+        button.setOnClickListener {
+            println(propertyList)
             // save in local storage si in api
             var userFromLocalStorage: UserToBeStoredDTO? = null
             val userFromLocalStorageString: String? = LocalStorage.getFromLocalStorage(requireActivity(), "user")
             if(userFromLocalStorageString != null) {
                 userFromLocalStorage = Gson().fromJson(userFromLocalStorageString, UserToBeStoredDTO::class.java)
-                println("Logged in as $userFromLocalStorage")
+                println("Right now logged in as: $userFromLocalStorage")
             }
             else{
                 Alerts.alert(requireActivity(), "Error", "Internal error");
@@ -144,6 +147,7 @@ class Profile : Fragment() {
         addPhotoButton.setOnClickListener {
             println("Clicked add photo button")
             openGallery()
+
         }
     }
     private fun convertBitmapToBase64(bitmap: Bitmap): String {
