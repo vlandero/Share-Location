@@ -19,12 +19,11 @@ class MainActivity : AppCompatActivity() {
 
     fun notLoggedInFragments () {
         runOnUiThread {
-            replaceFragment(Home())
+            replaceFragment(Login())
             binding.bottomNavigationViewNotLoggedIn.visibility = View.VISIBLE
             binding.bottomNavigationViewLoggedIn.visibility = View.GONE
             binding.bottomNavigationViewNotLoggedIn.setOnItemSelectedListener {
                 when (it.itemId) {
-                    R.id.home_button -> replaceFragment(Home())
                     R.id.login_button -> replaceFragment(Login())
                     R.id.register_button -> replaceFragment(Register())
 
@@ -51,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             binding.bottomNavigationViewLoggedIn.visibility = View.VISIBLE
             binding.bottomNavigationViewLoggedIn.setOnItemSelectedListener {
                 when (it.itemId) {
-                    R.id.explore_button -> replaceFragment(Explore())
+                    R.id.explore_button -> replaceFragment(Explore.newInstance(user))
                     R.id.profile_button -> replaceFragment(
                         Profile.newInstance(
                             profilePairs,
@@ -79,10 +78,6 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // de test, de comentat si de decomentat
-//        val testDto = UserRegisterRequestDTO("test", "test", "10", "test1", "test", "test", arrayListOf<String>(Images.img1, Images.img1), "test gmwnrk aflk asdhfasliuhgfas rgbasrhalufisd gfjbgsbgwlebgew gbfdsijghsdrigjes sfduighsdrioughwrlg sdfghwrgliweruhges werhgesbgsle", "test")
-//        LocalStorage.storeInLocalStorage(this, "user", Gson().toJson(testDto))
-//        LocalStorage.removeFromLocalStorage(this, "user")
         var user: UserToBeStoredDTO? = null
         val userJson = LocalStorage.getFromLocalStorage(this, "user")
         if (userJson != null) {
