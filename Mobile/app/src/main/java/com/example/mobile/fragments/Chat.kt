@@ -43,6 +43,7 @@ class Chat : Fragment() {
         var userFromLocalStorage = paramUser
         val apiCall = ApiCall()
         val mutuallyConnectedUsers = mutableListOf<UserToBeStoredDTO>()
+        // fetchuim toti userii cu care e conectat userul logat
         GlobalScope.launch(Dispatchers.IO) {
             apiCall.getConnectedUsersAsync(userFromLocalStorage!!.id) { result, e ->
                 GlobalScope.launch(Dispatchers.Main) {

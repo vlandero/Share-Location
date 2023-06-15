@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 
 public class Alerts {
 
+    // folosim functia alert pentru a afisa un mesaj
     companion object {
         fun alert(activity: FragmentActivity, title: String, message: String) {
             val builder = AlertDialog.Builder(activity)
