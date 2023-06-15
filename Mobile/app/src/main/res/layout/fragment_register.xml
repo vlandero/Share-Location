@@ -95,6 +95,15 @@
         android:textColorHint="@android:color/darker_gray"
         android:inputType="textPersonName" />
 
+    <EditText
+        android:id="@+id/ageRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Age"
+        android:fontFamily="@font/varela"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="phone" />
+
 
     <EditText
         android:id="@+id/phoneRegister"
