@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:paddingTop="16dp"
     android:paddingBottom="56dp"
-    android:background="@color/white"
+    android:background="?attr/colorOnPrimary"
     android:windowSoftInputMode="adjustPan"
     tools:context=".fragments.Profile">
 
@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:text="Profile"
-                    android:textColor="@android:color/black"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="26sp"
                     android:textStyle="bold" />
 

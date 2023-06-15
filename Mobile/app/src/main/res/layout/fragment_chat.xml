@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="#F2F2F2">
+    android:background="?attr/colorOnPrimary">
 
     <TextView
         android:id="@+id/textView"
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Chat with your friends"
         android:textSize="26sp"
-        android:textColor="@android:color/black"
+        android:textColor="?attr/colorPrimaryVariant"
         android:gravity="center"
         android:textStyle="bold"
         android:layout_marginBottom="16dp"

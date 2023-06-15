@@ -2,14 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="?attr/colorOnPrimary">
 
     <TextView
         android:id="@+id/usernameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Username"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorPrimaryVariant"
         android:textSize="20sp" />
 
     <Button
@@ -19,7 +20,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="16dp"
         android:text="Call"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:background="?attr/colorPrimary"/>
 
     <Button
         android:id="@+id/deleteButton"
@@ -27,7 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/callButton"
         android:text="Delete"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:background="?attr/colorPrimary"/>
 
     <TextView
         android:id="@+id/phoneTextView"
@@ -35,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/usernameTextView"
         android:textSize="20sp"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorPrimaryVariant"
         android:layout_marginTop="8dp" />
 
 </RelativeLayout>
