@@ -82,7 +82,8 @@
                     android:background="@drawable/custom_button"
                     android:text="@string/save"
                     android:fontFamily="@font/varela"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    />
 
                 <Button
                     android:id="@+id/logoutbutton"

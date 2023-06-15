@@ -56,7 +56,8 @@
             android:textSize="16sp"
             android:textColor="?attr/colorPrimaryVariant"
             app:layout_constraintTop_toBottomOf="@+id/propname"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/varela"/>
 
         <!-- Horizontal line -->
         <View
