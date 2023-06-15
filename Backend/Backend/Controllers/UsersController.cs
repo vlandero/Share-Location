@@ -63,6 +63,19 @@ namespace Backend.Controllers
                 return _getException(ex);
             }
         }
+        [HttpGet("connected-users/{userId}")]
+        public IActionResult GetConnectedUsers(Guid userId)
+        {
+            try
+            {
+                var connectedUsers = _userService.GetConnected(userId);
+                return Ok(connectedUsers);
+            }
+            catch (Exception ex)
+            {
+                return _getException(ex);
+            }
+        }
         [HttpPost("reject")]
         public IActionResult Reject(ManyToManyDTO rej)
         {
@@ -70,6 +83,19 @@ namespace Backend.Controllers
             {
                 _userService.Reject(rej.Id1, rej.Id2);
                 return Ok(rej);
+            }
+            catch (Exception ex)
+            {
+                return _getException(ex);
+            }
+        }
+        [HttpGet("rejected-users/{userId}")]
+        public IActionResult GetRejectedUsers(Guid userId)
+        {
+            try
+            {
+                var rejectedUsers = _userService.GetRejected(userId);
+                return Ok(rejectedUsers);
             }
             catch (Exception ex)
             {

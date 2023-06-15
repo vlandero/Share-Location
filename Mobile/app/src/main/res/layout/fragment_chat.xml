@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Chat"
-    android:background="@color/purple_700">
+    android:padding="16dp"
+    android:background="#F2F2F2">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chat Fragment"
-        android:textSize="26dp"
-        android:layout_gravity="center" />
+        android:text="Chat with your friends"
+        android:textSize="26sp"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="5dp"
+    />
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textView"
+        android:scrollbars="vertical"
+
+        />
+
+</RelativeLayout>

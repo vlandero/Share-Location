@@ -41,9 +41,9 @@ class MainActivity : AppCompatActivity() {
             return
         }
         val profilePairs = getProfilePairs(user)
-        println(profilePairs)
+        println("ProfilePairs: $profilePairs")
         val pictures = user.photos
-        println(pictures)
+        println("Pictures: $pictures")
         runOnUiThread {
             replaceFragment(Explore.newInstance(user))
             binding.bottomNavigationViewNotLoggedIn.visibility = View.GONE
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                             pictures
                         )
                     )
-                    R.id.chat_button -> replaceFragment(Chat())
+                    R.id.chat_button -> replaceFragment(Chat.newInstance(user))
 
                     else -> {
 

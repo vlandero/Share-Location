@@ -98,7 +98,7 @@ class Profile : Fragment() {
             val userFromLocalStorageString: String? = LocalStorage.getFromLocalStorage(requireActivity(), "user")
             if(userFromLocalStorageString != null) {
                 userFromLocalStorage = Gson().fromJson(userFromLocalStorageString, UserToBeStoredDTO::class.java)
-                println(userFromLocalStorage)
+                println("Right now logged in as: $userFromLocalStorage")
             }
             else{
                 Alerts.alert(requireActivity(), "Error", "Internal error");
@@ -145,7 +145,7 @@ class Profile : Fragment() {
 
         val addPhotoButton = view.findViewById<ImageView>(R.id.add_picture)
         addPhotoButton.setOnClickListener {
-            println("clicked add photo button")
+            println("Clicked add photo button")
             openGallery()
 
         }
