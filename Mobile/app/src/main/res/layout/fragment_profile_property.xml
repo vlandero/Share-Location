@@ -45,7 +45,8 @@
             android:textStyle="bold"
             android:textColor="?attr/colorPrimaryVariant"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/varela"/>
 
         <TextView
             android:id="@+id/propvalue"
