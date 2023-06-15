@@ -41,22 +41,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
-                android:textSize="36sp" />
+                android:fontFamily="@font/varela"
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/comma"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=", "
+                android:fontFamily="@font/varela"
                 android:textColor="@android:color/white"
-                android:textSize="36sp" />
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/tvLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
-                android:textSize="36sp" />
+                android:fontFamily="@font/varela"
+                android:textSize="26sp" />
 
         </LinearLayout>
 
