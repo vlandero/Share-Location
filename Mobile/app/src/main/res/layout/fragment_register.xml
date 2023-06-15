@@ -68,6 +68,15 @@
         android:textColorHint="@android:color/darker_gray"
         android:inputType="textPassword" />
 
+    <AutoCompleteTextView
+        android:id="@+id/locationRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location"
+        android:fontFamily="@font/varela"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="text" />
+
     <EditText
         android:id="@+id/emailRegister"
         android:layout_width="match_parent"
@@ -85,6 +94,7 @@
         android:fontFamily="@font/varela"
         android:textColorHint="@android:color/darker_gray"
         android:inputType="textPersonName" />
+
 
     <EditText
         android:id="@+id/phoneRegister"
@@ -127,14 +137,6 @@
         android:inputType="textMultiLine"
         android:maxLines="3" />
 
-    <EditText
-        android:id="@+id/locationRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Location"
-        android:fontFamily="@font/varela"
-        android:textColorHint="@android:color/darker_gray"
-        android:inputType="text" />
 
     <Button
         android:id="@+id/registerButton"
