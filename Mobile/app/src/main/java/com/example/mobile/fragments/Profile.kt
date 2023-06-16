@@ -122,6 +122,7 @@ class Profile : Fragment() {
                 photos = ArrayList(photos),
                 phone = userFromLocalStorage!!.phone
             )
+            println("New user: $newUser")
             apiCall.modifyUserAsync(newUser){ result, error ->
                 if(error != null){
                     activity?.runOnUiThread {
