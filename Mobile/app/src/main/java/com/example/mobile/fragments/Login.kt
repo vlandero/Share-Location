@@ -44,11 +44,25 @@ class Login : Fragment() {
         btnLogin.setOnClickListener {
             val username = etUsername.text.toString()
             val password = etPassword.text.toString()
+            if (username.isEmpty()) {
+                etUsername.error = "Username required"
+                etUsername.requestFocus()
+                return@setOnClickListener
+            }
+            if (password.isEmpty()) {
+                etPassword.error = "Password required"
+                etPassword.requestFocus()
+                return@setOnClickListener
+            }
+
             val dto = UserLoginRequestDTO(username, password)
             val apiCall = ApiCall()
             apiCall.loginUserAsync(dto) { result, exception ->
                 if (exception != null) {
-                    Alerts.alert(requireActivity(), "Login error", "Failed to login")
+                    println("Error logging in: $exception")
+                    activity?.runOnUiThread {
+                        Alerts.alert(requireActivity(), "Error", "Invalid username or password. Please try again.")
+                    }
                     // Handle login error
                 } else {
                     val gson = Gson()
@@ -72,7 +86,6 @@ class Login : Fragment() {
                                     } else {
                                         val user = Gson().fromJson(userResult, UserToBeStoredDTO::class.java)
                                         LocalStorage.storeInLocalStorage(requireActivity(), "user", Gson().toJson(user))
-
                                         (requireActivity() as MainActivity).apply {
                                             if (user.id.isNotEmpty()) {
                                                 println("User is authenticated")
