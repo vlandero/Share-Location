@@ -11,3 +11,5 @@ Total story points: 123.
 5 sprinturi => 24 story points / sprint.
 
 8-9 puncte / sprint pentru fiecare membru al echipei.
+
+Demo: https://youtu.be/0vEDu3MsUQo
